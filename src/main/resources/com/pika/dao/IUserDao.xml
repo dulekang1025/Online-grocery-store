@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pika.dao.IUserDao">
+
+    <resultMap id="userMap" type="com.pika.domain.Customer">
+        <id property="id" column="id"></id>
+        <!--  property is attributes in class， column is in database -->
+        <result property="username" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="email" column="email"></result>
+        <result property="role" column="role"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="address" column="address"></result>
+        <result property="postCode" column="postCode"></result>
+        <result property="creditNum" column="creditNum"></result>
+        <result property="phoneNum" column="phoneNum"></result>
+        <result property="points" column="points"></result>
+
+    </resultMap>
+
+    <select id="findAll" resultMap="userMap">
+        select * from user;
+    </select>
+
+    <insert id="saveUser" parameterMap="User">
+        <selectKey keyProperty="id" keyColumn="id" resultType="long" order="AFTER">
+            select last_in
+        </selectKey>
+    </insert>
+
+</mapper>
