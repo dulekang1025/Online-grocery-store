@@ -4,62 +4,39 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
-import java.util.Arrays;
-import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
+import java.util.Arrays;
+import java.util.Collection;
 
 @Entity
 @Data
-@NoArgsConstructor(access = AccessLevel.PUBLIC,force = true)
+@NoArgsConstructor(access = AccessLevel.PUBLIC,force=true)
 @RequiredArgsConstructor
-public class Customer implements UserDetails {
-
-    private static final long serialVersionUID=1L;
+public class Manager implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
-
-    private final String password;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private final Long id;
 
     private final String username;
-
-    private String email;
+    private final String password;
+    private final String email;
 
     // can be instead by getAuthorities()
     private String role;
 
-    private Date birthday;
-
-    private String address;
-
-    private String postcode;
-
-    private Long creditNum;
-
-    private final String phoneNum;
-
-    private String points;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(("ROLE_USER")));
+        return Arrays.asList(new SimpleGrantedAuthority(("ROLE_ADMIN")));
     }
-
-//    @Override
-//    public String getPassword() {
-//        return null;
-//    }
 
 //    @Override
 //    public String getUsername() {
