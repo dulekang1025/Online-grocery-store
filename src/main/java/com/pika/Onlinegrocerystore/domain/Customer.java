@@ -42,15 +42,15 @@ public class Customer implements UserDetails {
 
     private Date birthday;
 
-    private String address;
+//    private String address;
 
-    private String postcode;
+//    private String postcode;
 
-    private Long creditNum;
+//    private String creditNum;
 
     private final String phoneNum;
 
-    private String points;
+    private int points;
 
 
     @Override

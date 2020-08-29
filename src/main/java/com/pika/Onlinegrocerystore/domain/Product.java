@@ -27,7 +27,7 @@ public class Product {
     // unit
     private String productDescription;
     private Image productPhoto;
-    private String points;
+    private int points;
     private Date bestBefore;
 
 }
