@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -31,6 +32,7 @@ public class Customer implements UserDetails {
 
     private final String password;
 
+    @Size(min=5, message="Name must be at least 5 characters long")
     private final String username;
 
     private String email;
