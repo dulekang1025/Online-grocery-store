@@ -16,32 +16,32 @@ public class CustomerDao implements ICustomerDao {
     }
 
     @Override
-    public void saveUser(Customer customer) {
+    public void saveCustomer(Customer customer) {
 
     }
 
     @Override
-    public void updateUser(Customer customer) {
+    public void updateCustomer(Customer customer) {
 
     }
 
     @Override
-    public void deleteUser(Customer customer) {
+    public void deleteCustomer(Customer customer) {
 
     }
 
     @Override
-    public User findById(Integer userId) {
+    public User findCustomerById(Integer userId) {
         return null;
     }
 
     @Override
-    public List<Customer> findByName(String username) {
+    public List<Customer> findCustomerByName(String username) {
         return null;
     }
 
     @Override
-    public List<Customer> findUserByVo(QueryVo vo) {
+    public List<Customer> findCustomerByVo(QueryVo vo) {
         return null;
     }
 }

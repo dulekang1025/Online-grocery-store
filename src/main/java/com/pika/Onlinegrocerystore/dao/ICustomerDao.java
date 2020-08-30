@@ -12,15 +12,15 @@ public interface ICustomerDao {
 
     List<Customer> findAll();
 
-    void saveUser(Customer customer);
+    void saveCustomer(Customer customer);
 
-    void updateUser(Customer customer);
+    void updateCustomer(Customer customer);
 
-    void deleteUser(Customer customer);
+    void deleteCustomer(Customer customer);
 
-    User findById(Integer userId);
+    User findCustomerById(Integer userId);
 
-    List<Customer> findByName(String username);
+    List<Customer> findCustomerByName(String username);
 
-    List<Customer> findUserByVo(QueryVo vo);
+    List<Customer> findCustomerByVo(QueryVo vo);
 }

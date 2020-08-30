@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource="jdbcConfig.properties"></properties>
+
+    <typeAliases>
+        <!-- 配置domain包内， 类名就是别名 -->
+        <package name="com.pika.domain"></package>
+    </typeAliases>
+
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"></transactionManager>
+
+            <dataSource type="POOLED">
+                <property name="driver" value="@{jdbc.driver}"/>
+                <property name="url" value="@{jdbc.url}"/>
+                <property name="username" value="@{jdbc.username}"/>
+                <property name="password" value="@{jdbc.password}"/>
+            </dataSource>
+
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/pika/dao/CustomerMapper.xml"></mapper>
+        <mapper resource="com/pika/dao/ManagerMapper.xml"></mapper>
+    </mappers>
+
+</configuration>

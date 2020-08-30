@@ -1,23 +1,24 @@
 package com.pika.Onlinegrocerystore.dao;
 
 import com.pika.Onlinegrocerystore.domain.Customer;
+import com.pika.Onlinegrocerystore.domain.Manager;
 import com.pika.Onlinegrocerystore.domain.QueryVo;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
 public interface IManagerDao {
-    List<Customer> findAll();
+    List<Manager> findAll();
 
-    void saveUser(Customer customer);
+    void saveManager(Manager manager);
 
-    void updateUser(Customer customer);
+    void updateManager(Manager manager);
 
-    void deleteUser(Customer customer);
+    void deleteManager(Manager manager);
 
-    User findById(Integer userId);
+    User findManagerById(Integer userId);
 
-    List<Customer> findByName(String username);
+    List<Customer> findManagerByName(String username);
 
-    List<Customer> findUserByVo(QueryVo vo);
+    List<Customer> findManagerByVo(QueryVo vo);
 }
