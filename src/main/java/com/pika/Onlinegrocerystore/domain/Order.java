@@ -3,6 +3,7 @@ package com.pika.Onlinegrocerystore.domain;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -25,6 +26,7 @@ public class Order implements Serializable {
     @ManyToOne
     private Customer userId;
 
+    // consider to use NotNull
     @NotBlank(message="Name is required")
     private String name;
 
@@ -62,4 +64,6 @@ public class Order implements Serializable {
     @ManyToMany(targetEntity = Product.class)
     private Map<Product, Integer> orderDetails;
 
+    public Order() {
+    }
 }
