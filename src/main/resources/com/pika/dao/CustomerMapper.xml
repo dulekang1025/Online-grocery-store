@@ -15,30 +15,30 @@
 <!--        <result property="address" column="address"></result>-->
 <!--        <result property="postCode" column="postCode"></result>-->
 <!--        <result property="creditNum" column="creditNum"></result>-->
-        <result property="phoneNum" column="phoneNum"></result>
+        <result property="phoneNum" column="phone_num"></result>
         <result property="points" column="points"></result>
 
     </resultMap>
 
-    <select id="findAll" resultMap="Map">
+    <select id="findAll" resultMap="customerMap">
         select * from customerTable;
     </select>
 
-    <insert id="saveCustomer" parameterMap="customerMap">
+    <insert id="saveCustomer" parameterType="Customer">
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
-        insert into CustomerTable(username, password, email, birthday, phoneNum, point)
+        insert into customerTable(username, password, email, birthday, phoneNum, point)
         values(#{username}, #{password}, #{email}, #{birthday}, #{phoneNum}, #{point});
     </insert>
     
     <update id="updateCustomer" parameterType="java.lang.Long">
-        update CustomerTable set username=#{username}, password=#{password}, email=#{email},
-        birthday=#{birthday}, phoneNum=#{phoneNum}, point=#{point}) where id=#{id};
+        update customerTable set username=#{username}, password=#{password}, email=#{email},
+        birthday=#{birthday}, phone_num=#{phoneNum}, point=#{point} where id=#{id};
     </update>
     
     <delete id="deleteCustomer" parameterType="java.lang.Long">
-        delete from CustomerTable where id=#{id};
+        delete from customerTable where id=#{id};
     </delete>
     
     <select id="findCustomerById" parameterType="java.lang.Long" resultMap="customerMap">
@@ -47,7 +47,6 @@
 
     <select id="findCustomerByName" parameterType="String" resultMap="customerMap">
         select * from customerTable where username like #{username};
-
     </select>
 
 </mapper>
