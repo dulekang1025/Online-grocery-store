@@ -29,7 +29,6 @@ public class Manager implements UserDetails {
     private final String password;
     private final String email;
 
-    // can be instead by getAuthorities()
     private String role;
 
 
