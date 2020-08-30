@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,10 +51,32 @@ public class Customer implements UserDetails {
 
     private int points;
 
+    // 加了构造方法就不报错了
+    public Customer(Long id, String password, String username, String email, String role, Date birthday, String phoneNum, int points) {
+        this.id = id;
+        this.password = password;
+        this.username = username;
+        this.email = email;
+        this.role = role;
+        this.birthday = birthday;
+        this.phoneNum = phoneNum;
+        this.points = points;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(("ROLE_USER")));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
     }
 
 //    @Override

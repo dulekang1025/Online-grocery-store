@@ -31,10 +31,29 @@ public class Manager implements UserDetails {
 
     private String role;
 
+    // 加了构造方法就不报错了
+    public Manager(Long id, String username, String password, String email, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(("ROLE_ADMIN")));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
     }
 
 //    @Override
