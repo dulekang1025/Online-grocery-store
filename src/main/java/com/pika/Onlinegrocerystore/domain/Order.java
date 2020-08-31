@@ -24,7 +24,7 @@ public class Order implements Serializable {
     private Long orderId;
 
     @ManyToOne
-    private Customer userId;
+    private Customer customer;
 
     // consider to use NotNull
     @NotBlank(message="Name is required")
@@ -54,7 +54,7 @@ public class Order implements Serializable {
 
 //    private String trackingNum;
     private Double sumPrice;
-//    private Date createTime;
+    private Date createTime;
 
 
     private OrderStatus status;
