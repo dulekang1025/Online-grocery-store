@@ -29,14 +29,45 @@ public class Manager implements UserDetails {
     private final String password;
     private final String email;
 
-    // can be instead by getAuthorities()
     private String role;
 
+    // 加了构造方法就不报错了
+    public Manager(Long id, String username, String password, String email, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(("ROLE_ADMIN")));
     }
+
+
 
 //    @Override
 //    public String getUsername() {

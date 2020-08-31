@@ -51,21 +51,61 @@ public class Customer implements UserDetails {
 
     private int points;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    // 加了构造方法就不报错了
+    public Customer(Long id, String password, String username, String email, String role, Date birthday, String phoneNum, int points) {
+        this.id = id;
+        this.password = password;
+        this.username = username;
+        this.email = email;
+        this.role = role;
+        this.birthday = birthday;
+        this.phoneNum = phoneNum;
+        this.points = points;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(("ROLE_USER")));
     }
-
-//    @Override
-//    public String getPassword() {
-//        return null;
-//    }
-
-//    @Override
-//    public String getUsername() {
-//        return null;
-//    }
 
     @Override
     public boolean isAccountNonExpired() {
