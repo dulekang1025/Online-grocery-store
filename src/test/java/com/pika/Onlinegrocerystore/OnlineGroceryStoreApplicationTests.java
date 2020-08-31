@@ -6,43 +6,59 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.io.InputStream;
 import java.util.List;
 
 @SpringBootTest
 class OnlineGroceryStoreApplicationTests {
-	private InputStream in;
-	private ICustomerDao customerDao;
-	private SqlSession sqlSession;
+//	private InputStream in;
+//	private ICustomerDao customerDao;
+//	private SqlSession sqlSession;
+//	private ITestDao testDao;
+//
+//
+////	@Override
+//	public void beforeAll(ExtensionContext context) throws Exception {
+//		System.out.println("beforeAll");
+//		in = Resources.getResourceAsStream("SqlMapConfig.xml");
+//		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+//		sqlSession = factory.openSession(true);
+//		testDao = sqlSession.getMapper(ITestDao.class);
+//	}
+//
+//	public void init() throws Exception{
+//		in = Resources.getResourceAsStream("SqlMapConfig.xml");
+//		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+//		sqlSession = factory.openSession(true);
+//		testDao = sqlSession.getMapper(ITestDao.class);
+//	}
 
-	@Before
-	public void init() throws Exception{
+//	@After
+//	public void destroy() throws Exception{
+//		sqlSession.close();
+//		in.close();
+//
+//	}
+
+
+//	@org.junit.jupiter.api.Test
+//	public void testSout(){
+//		System.out.println("all good");
+//	}
+
+	@org.junit.jupiter.api.Test
+	public void testFindAllCustomer() throws Exception{
+		InputStream in;
+		ICustomerDao cdao;
+		SqlSession sqlSession;
 		in = Resources.getResourceAsStream("SqlMapConfig.xml");
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
 		sqlSession = factory.openSession(true);
-		customerDao = sqlSession.getMapper(ICustomerDao.class);
-	}
-
-	@After
-	public void destroy() throws Exception{
-		sqlSession.close();
-		in.close();
-	}
-
-	@Test
-	public void testSout(){
-		System.out.println("all good");
-	}
-
-	@Test
-	public void testFindAllCustomer(){
-		List<Customer> customers = customerDao.findAll();
+		cdao = sqlSession.getMapper(ICustomerDao.class);
+		System.out.println(in);
+		List<Customer> customers = cdao.findAll();
 		for (Customer cus: customers){
 			System.out.println(cus.getId());
 			System.out.println(cus.getUsername());

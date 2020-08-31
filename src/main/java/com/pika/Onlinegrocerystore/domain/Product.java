@@ -17,7 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private  Long id;
+    private Long id;
 
     private int Stock;
     private String productName;
