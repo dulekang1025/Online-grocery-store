@@ -11,7 +11,7 @@ public interface IOrderDao {
     
     void createOrder(Order order);
 
-    User findOrderById(Integer userId);
+    Order findOrderById(Integer userId);
 
     List<Order> findOrderByDate(Date username);
 

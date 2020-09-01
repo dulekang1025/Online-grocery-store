@@ -6,59 +6,33 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.List;
 
 @SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class OnlineGroceryStoreApplicationTests {
-//	private InputStream in;
-//	private ICustomerDao customerDao;
-//	private SqlSession sqlSession;
-//	private ITestDao testDao;
-//
-//
-////	@Override
-//	public void beforeAll(ExtensionContext context) throws Exception {
-//		System.out.println("beforeAll");
-//		in = Resources.getResourceAsStream("SqlMapConfig.xml");
-//		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-//		sqlSession = factory.openSession(true);
-//		testDao = sqlSession.getMapper(ITestDao.class);
-//	}
-//
-//	public void init() throws Exception{
-//		in = Resources.getResourceAsStream("SqlMapConfig.xml");
-//		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-//		sqlSession = factory.openSession(true);
-//		testDao = sqlSession.getMapper(ITestDao.class);
-//	}
+	private InputStream in;
+	private ICustomerDao customerDao;
+	private SqlSession sqlSession;
 
-//	@After
-//	public void destroy() throws Exception{
-//		sqlSession.close();
-//		in.close();
-//
-//	}
-
-
-//	@org.junit.jupiter.api.Test
-//	public void testSout(){
-//		System.out.println("all good");
-//	}
-
-	@org.junit.jupiter.api.Test
-	public void testFindAllCustomer() throws Exception{
-		InputStream in;
-		ICustomerDao cdao;
-		SqlSession sqlSession;
+	@BeforeAll
+	public void init() throws Exception{
 		in = Resources.getResourceAsStream("SqlMapConfig.xml");
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
 		sqlSession = factory.openSession(true);
-		cdao = sqlSession.getMapper(ICustomerDao.class);
+		customerDao = sqlSession.getMapper(ICustomerDao.class);
 		System.out.println(in);
-		List<Customer> customers = cdao.findAll();
+	}
+
+
+	@Test
+	public void testFindAllCustomer() throws Exception{
+		List<Customer> customers = customerDao.findAll();
+
 		for (Customer cus: customers){
 			System.out.println(cus.getId());
 			System.out.println(cus.getUsername());
@@ -69,6 +43,27 @@ class OnlineGroceryStoreApplicationTests {
 			System.out.println(cus.getPhoneNum());
 			System.out.println(cus.getPoints());
 		}
+	}
+
+	@Test
+	public void testFindCustomerById() throws Exception{
+		Customer customer = customerDao.findCustomerById(5L);
+		System.out.println(customer.getId());
+		System.out.println(customer.getUsername());
+		System.out.println(customer.getEmail());
+		System.out.println(customer.getPhoneNum());
+		System.out.println(customer.getPoints());
+	}
+
+	@Test
+	public void testSaveUser() throws Exception{
+		Customer customer = new Customer("mypassword", "Chick",
+				"chick@outlook.com", "1", new Date(2014, 02, 11),
+				"139111456678", 999999);
+
+		customerDao.saveCustomer(customer);
+		System.out.println("save successfully");
+
 	}
 
 }

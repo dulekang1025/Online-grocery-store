@@ -47,7 +47,7 @@ public class Customer implements UserDetails {
 
 //    private String creditNum;
 
-    private final String phoneNum;
+    private String phoneNum;
 
     private int points;
 
@@ -90,8 +90,7 @@ public class Customer implements UserDetails {
     }
 
     // 加了构造方法就不报错了
-    public Customer(Long id, String password, String username, String email, String role, Date birthday, String phoneNum, int points) {
-        this.id = id;
+    public Customer(String password, String username, String email, String role, Date birthday, String phoneNum, int points) {
         this.password = password;
         this.username = username;
         this.email = email;

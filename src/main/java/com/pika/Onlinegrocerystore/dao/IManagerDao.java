@@ -16,7 +16,7 @@ public interface IManagerDao {
 
     void deleteManager(Manager manager);
 
-    User findManagerById(Integer userId);
+    Manager findManagerById(Integer userId);
 
     List<Customer> findManagerByName(String username);
 

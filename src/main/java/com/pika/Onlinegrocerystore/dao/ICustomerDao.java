@@ -18,7 +18,7 @@ public interface ICustomerDao {
 
     void deleteCustomer(Customer customer);
 
-    User findCustomerById(Integer userId);
+    Customer findCustomerById(Long userId);
 
     List<Customer> findCustomerByName(String username);
 
