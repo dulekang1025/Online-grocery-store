@@ -6,7 +6,7 @@
 <!--    todo-->
 
     <resultMap id="customerMap" type="Customer">
-        <id property="id" column="id"></id>
+        <id property="cid" column="id"></id>
         <!--  property is attributes in class， column is in database -->
         <result property="username" column="username"></result>
         <result property="password" column="password"></result>
@@ -29,8 +29,8 @@
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
-        insert into customerTable(username, password, email, birthday, phone_num, points)
-        values(#{username}, #{password}, #{email}, #{birthday}, #{phoneNum}, #{points});
+        insert into customerTable(username, password, email, birthday, phoneNum, points)
+        values(#{username}, #{password}, #{email}, #{birthday}, #{phone_num}, #{points});
     </insert>
 
     <update id="updateCustomer" parameterType="java.lang.Long">
@@ -43,7 +43,7 @@
     </delete>
 
     <select id="findCustomerById" parameterType="java.lang.Long" resultMap="customerMap">
-        select * from customerTable where id=#{id};
+        select * from customerTable where phone_num=#{phone_num};
     </select>
 
     <select id="findCustomerByName" parameterType="String" resultMap="customerMap">

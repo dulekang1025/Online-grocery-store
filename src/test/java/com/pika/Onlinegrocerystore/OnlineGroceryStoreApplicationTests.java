@@ -47,7 +47,7 @@ class OnlineGroceryStoreApplicationTests {
 
 	@Test
 	public void testFindCustomerById() throws Exception{
-		Customer customer = customerDao.findCustomerById(5L);
+		Customer customer = customerDao.findCustomerById(13900000000L);
 		System.out.println(customer.getId());
 		System.out.println(customer.getUsername());
 		System.out.println(customer.getEmail());
@@ -58,7 +58,7 @@ class OnlineGroceryStoreApplicationTests {
 	@Test
 	public void testSaveUser() throws Exception{
 		Customer customer = new Customer("mypassword", "Chick",
-				"chick@outlook.com", "1", new Date(2019, 02, 11),
+				"chick@outlook.com", "1", new Date(15, 02, 11),
 				"139111456678", 999999);
 
 		customerDao.saveCustomer(customer);

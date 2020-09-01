@@ -27,7 +27,7 @@ public class Customer implements UserDetails {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private Long cid;
 
     private final String password;
 
@@ -56,7 +56,7 @@ public class Customer implements UserDetails {
     }
 
     public Long getId() {
-        return id;
+        return cid;
     }
 
     @Override
