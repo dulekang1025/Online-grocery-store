@@ -58,7 +58,7 @@ class OnlineGroceryStoreApplicationTests {
 	@Test
 	public void testSaveUser() throws Exception{
 		Customer customer = new Customer("mypassword", "Chick",
-				"chick@outlook.com", "1", new Date(2014, 02, 11),
+				"chick@outlook.com", "1", new Date(2019, 02, 11),
 				"139111456678", 999999);
 
 		customerDao.saveCustomer(customer);
