@@ -1,25 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pika.dao.IUserDao">
+<mapper namespace="com.pika.Onlinegrocerystore.dao.IManagerDao">
 
-    <resultMap id="managerMap" type="com.pika.domain.Customer">
-        <!-- primary key -->
+    <resultMap id="managerMap" type="Manager">
         <id property="id" column="id"></id>
-        <!--  property is attribute in class， column is attribute in database -->
+        <!--  property is attributes in class， column is in database -->
         <result property="username" column="username"></result>
         <result property="password" column="password"></result>
         <result property="email" column="email"></result>
         <result property="role" column="role"></result>
-
     </resultMap>
 
     <select id="findAll" resultMap="managerMap">
         select * from managerTable;
     </select>
 
-    <insert id="saveManager" parameterType="Manager">
+    <insert id="saveManager" parameterType="Manager" >
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
@@ -27,21 +25,20 @@
         values(#{username}, #{password}, #{email});
     </insert>
 
-    <update id="updateManager" parameterType="java.lang.Long">
-        update managerTable set username=#{username}, password=#{password}, email=#{email},
-        where id=#{id};
+    <update id="updateManager" parameterType="Manager">
+        update managerTable set username=#{username}, password=#{password}, email=#{email} where id=#{id};
     </update>
-
-    <delete id="deleteManager" parameterType="java.lang.Long">
-        delete from managerTable where id=#{id};
-    </delete>
 
     <select id="findManagerById" parameterType="java.lang.Long" resultMap="managerMap">
         select * from managerTable where id=#{id};
     </select>
 
     <select id="findManagerByName" parameterType="String" resultMap="managerMap">
-        select * from managerTable where username like #{username};
+        select * from managerTable where username like #{name};
     </select>
+
+    <delete id="deleteManagerById" parameterType="java.lang.Long">
+        delete from managerTable where id=#{id};
+    </delete>
 
 </mapper>
