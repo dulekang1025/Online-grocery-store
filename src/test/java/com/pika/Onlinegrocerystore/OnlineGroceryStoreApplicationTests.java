@@ -14,6 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.InputStream;
+import java.util.List;
+
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
