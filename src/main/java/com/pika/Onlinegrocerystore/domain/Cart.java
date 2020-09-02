@@ -17,7 +17,7 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private final Long id;
+    private Long id;
 
     private Long userId;
     private double sumPrice;

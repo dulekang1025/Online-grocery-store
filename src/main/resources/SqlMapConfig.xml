@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
 <configuration>
+    <properties resource="application.properties"></properties>
 
-    <properties resource="jdbcConfig.properties"></properties>
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"></setting>
+    </settings>
 
     <typeAliases>
         <!-- 配置domain包内， 类名就是别名 -->
-        <package name="com.pika.domain"></package>
+        <package name="com.pika.Onlinegrocerystore.domain"></package>
     </typeAliases>
 
     <environments default="mysql">
@@ -17,18 +20,19 @@
             <transactionManager type="JDBC"></transactionManager>
 
             <dataSource type="POOLED">
-                <property name="driver" value="@{jdbc.driver}"/>
-                <property name="url" value="@{jdbc.url}"/>
-                <property name="username" value="@{jdbc.username}"/>
-                <property name="password" value="@{jdbc.password}"/>
+                <property name="driver" value="${jdbc.driver}"></property>
+                <property name="url" value="${jdbc.url}"></property>
+                <property name="username" value="${jdbc.username}"></property>
+                <property name="password" value="${jdbc.password}"></property>
             </dataSource>
-
         </environment>
     </environments>
 
     <mappers>
-        <mapper resource="com/pika/dao/CustomerMapper.xml"></mapper>
-        <mapper resource="com/pika/dao/ManagerMapper.xml"></mapper>
+        <!-- 因为Java包内叫ICustomerDao, xml文件叫CustomerMapper.xml， 名字不同-->
+        <mapper resource="com/pika/Onlinegrocerystore/dao/CustomerMapper.xml"></mapper>
+        <mapper resource="com/pika/Onlinegrocerystore/dao/ManagerMapper.xml"></mapper>
+<!--        当Java doc包内的类名(接口名)与resources中xml同名，可以用下方语句引用包地址，从而替换上面语句-->
+<!--        <package name="com.pika.Onlinegrocerystore.dao"></package>-->
     </mappers>
-
 </configuration>
