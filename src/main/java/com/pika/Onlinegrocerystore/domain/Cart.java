@@ -1,3 +1,4 @@
+
 package com.pika.Onlinegrocerystore.domain;
 
 import lombok.AccessLevel;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Entity
 @Data
-//@NoArgsConstructor(access = AccessLevel.PUBLIC,force = true)
+@NoArgsConstructor(access = AccessLevel.PUBLIC,force = true)
 @RequiredArgsConstructor
 public class Cart {
 
@@ -26,3 +27,4 @@ public class Cart {
 
 
 }
+
