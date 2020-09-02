@@ -27,7 +27,7 @@ public class Customer implements UserDetails {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long cid;
+    private Long id;
 
     private final String password;
 
@@ -56,7 +56,7 @@ public class Customer implements UserDetails {
     }
 
     public Long getId() {
-        return cid;
+        return id;
     }
 
     @Override
@@ -89,15 +89,25 @@ public class Customer implements UserDetails {
         return points;
     }
 
-    // 加了构造方法就不报错了
-    public Customer(String password, String username, String email, String role, Date birthday, String phoneNum, int points) {
-        this.password = password;
+    // 加了构造方法就不报错了, for testing
+    public Customer(Long id, String username, String password, String email, String role, Date birthday, String phoneNum) {
+        this.id = id;
         this.username = username;
+        this.password = password;
         this.email = email;
         this.role = role;
         this.birthday = birthday;
         this.phoneNum = phoneNum;
-        this.points = points;
+    }
+
+    // Override constructor, no id, for testing
+    public Customer(String username, String password, String email, String role, Date birthday, String phoneNum) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.birthday = birthday;
+        this.phoneNum = phoneNum;
     }
 
 
