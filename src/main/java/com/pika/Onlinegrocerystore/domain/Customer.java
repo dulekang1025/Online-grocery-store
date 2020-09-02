@@ -49,7 +49,7 @@ public class Customer implements UserDetails {
 
 //    private String creditNum;
 
-    private final String phoneNum;
+    private String phoneNum;
 
     private int points;
 
@@ -91,16 +91,25 @@ public class Customer implements UserDetails {
         return points;
     }
 
-    // 加了构造方法就不报错了
-    public Customer(Long id, String password, String username, String email, String role, Date birthday, String phoneNum, int points) {
+    // 加了构造方法就不报错了, for testing
+    public Customer(Long id, String username, String password, String email, String role, Date birthday, String phoneNum) {
         this.id = id;
-        this.password = password;
         this.username = username;
+        this.password = password;
         this.email = email;
         this.role = role;
         this.birthday = birthday;
         this.phoneNum = phoneNum;
-        this.points = points;
+    }
+
+    // Override constructor, no id, for testing
+    public Customer(String username, String password, String email, String role, Date birthday, String phoneNum) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.birthday = birthday;
+        this.phoneNum = phoneNum;
     }
 
 

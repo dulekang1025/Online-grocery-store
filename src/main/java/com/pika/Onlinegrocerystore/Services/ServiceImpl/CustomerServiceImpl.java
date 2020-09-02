@@ -20,35 +20,39 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer findById(Long id) {
         Customer customer = customerDao.findCustomerById(id);
+        return customer;
     }
 
     @Override
     public List<Customer> findAll() {
+        List<Customer> result = customerDao.findAll();
         return null;
     }
 
     @Override
     public void update(Customer customer) {
-
+        customerDao.updateCustomer(customer);
     }
 
     @Override
     public void create(Customer customer) {
-
+        customerDao.saveCustomer(customer);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        customerDao.deleteCustomerById(id);
     }
 
     @Override
     public List<Customer> findByName(String name) {
+        List<Customer> result = customerDao.findCustomerByName(name);
         return null;
     }
 
     @Override
     public Customer checkLogin(String name, String password) {
+        //todo : check login
         return null;
     }
 }

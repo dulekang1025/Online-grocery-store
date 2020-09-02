@@ -14,11 +14,11 @@ public interface IManagerDao {
 
     void updateManager(Manager manager);
 
-    void deleteManager(Manager manager);
+    Manager findManagerById(Long userId);
 
-    User findManagerById(Integer userId);
+    void deleteManagerById(Long userId);
 
-    List<Customer> findManagerByName(String username);
+    List<Manager> findManagerByName(String username);
 
-    List<Customer> findManagerByVo(CustomerQueryVo vo);
+//    List<Customer> findManagerByVo(CustomerQueryVo vo);
 }

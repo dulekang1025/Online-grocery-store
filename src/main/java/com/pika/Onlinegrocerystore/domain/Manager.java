@@ -23,7 +23,7 @@ public class Manager implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
 
     private final String username;
     private final String password;
@@ -31,9 +31,17 @@ public class Manager implements UserDetails {
 
     private String role;
 
-    // 加了构造方法就不报错了
+    // 加了构造方法就不报错了, for testing
     public Manager(Long id, String username, String password, String email, String role) {
         this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    // Override constructor, no id, for testing
+    public Manager(String username, String password, String email, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
