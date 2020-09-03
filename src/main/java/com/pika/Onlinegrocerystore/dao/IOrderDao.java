@@ -7,13 +7,23 @@ import java.util.Date;
 import java.util.List;
 
 public interface IOrderDao {
+
     List<Order> findAll();
     
-    void createOrder(Order order);
+    void saveOrder(Order order);
 
-    Order findOrderById(Integer userId);
+    Order findOrderById(Long id);
+
+    List<Order> findOrderByUserId(Long userId);
 
     List<Order> findOrderByDate(Date username);
+
+    //do not delete from database, just change order status
+//    void deleteOrder(Long id);
+
+    void updateOrder(Long id);
+
+
 
 
 //    /**
