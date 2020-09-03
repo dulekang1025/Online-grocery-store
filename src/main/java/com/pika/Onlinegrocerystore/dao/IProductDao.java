@@ -9,7 +9,7 @@ public interface IProductDao {
     Product findProductById(Long id);
     List<Product> findAll();
     void updateProduct(Product product);
-    void createProduct(Product product);
+    void saveProduct(Product product);
     void deleteProductById(Long id);
     //void deleteByName(int id);
     List<Product> findProductByName(String name);
