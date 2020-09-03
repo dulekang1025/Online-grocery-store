@@ -4,9 +4,11 @@ import com.pika.Onlinegrocerystore.Services.CustomerService;
 import com.pika.Onlinegrocerystore.dao.ICustomerDao;
 import com.pika.Onlinegrocerystore.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     private final ICustomerDao customerDao;
@@ -26,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> findAll() {
         List<Customer> result = customerDao.findAll();
-        return null;
+        return result;
     }
 
     @Override
