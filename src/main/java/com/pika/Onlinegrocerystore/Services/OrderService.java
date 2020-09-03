@@ -9,7 +9,7 @@ public interface OrderService {
 
     Order findById(Long id);
     List<Order> findAll();
-    void update(Long id);
+    void update(Order order);
     void create(Order order);
     void deleteById(Long id);
 

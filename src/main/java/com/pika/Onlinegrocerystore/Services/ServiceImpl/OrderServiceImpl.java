@@ -33,8 +33,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void update(Long id) {
-        orderDao.updateOrder(id);
+    public void update(Order order) {
+        orderDao.updateOrder(order);
     }
 
     @Override

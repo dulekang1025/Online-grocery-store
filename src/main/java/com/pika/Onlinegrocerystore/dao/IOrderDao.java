@@ -21,7 +21,7 @@ public interface IOrderDao {
     //do not delete from database, just change order status
 //    void deleteOrder(Long id);
 
-    void updateOrder(Long id);
+    void updateOrder(Order order);
 
 
 
