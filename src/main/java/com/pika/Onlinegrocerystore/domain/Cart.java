@@ -12,19 +12,17 @@ import java.util.Map;
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC,force = true)
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class Cart {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private final Long id;
+    private Long id;
 
     private Long userId;
     private double sumPrice;
 
     @OneToMany(targetEntity = Product.class)
-    private Map<Product, Integer> goods;
-
-
+    private Map<Product, Integer> productMap;
 }
 

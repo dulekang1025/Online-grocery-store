@@ -18,7 +18,8 @@ import java.util.Random;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+
+@SpringBootTest(classes={com.pika.Onlinegrocerystore.dao.ICustomerDao.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CustomerDaoTests {
     private InputStream in;

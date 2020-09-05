@@ -8,21 +8,10 @@ import java.util.List;
 
 public interface IOrderDao {
     List<Order> findAll();
-    
-    void createOrder(Order order);
 
-    Order findOrderById(Integer userId);
+    void findOrderById(Long id);
 
-    List<Order> findOrderByDate(Date username);
+    void deleteOrderById(Long id);
 
-
-//    /**
-//     * fuzzy query 模糊查询
-//     * @param username keyword order may contain 订单包含的关键字
-//     */
-//    List<Order> findOrderByName(String username);
-
-    //    void updateOrder(Order order);
-
-    //    void deleteOrder(Order order);
+    Double getTotalPrice();
 }
