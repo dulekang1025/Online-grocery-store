@@ -19,9 +19,9 @@ public class Product {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private int Stock;
+    private int stock;
     private String productName;
-    private Category Category;
+    private Category category;
     private double price;
 
     // unit

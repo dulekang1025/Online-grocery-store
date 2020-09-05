@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pika.Onlinegrocerystore.dao.IProductDao">
+
+
+    <resultMap id="ProductMap" type="Product">
+        <id property="id" column="id"></id>
+        <!--  property is attributes in class， column is in database -->
+        <result property="stock" column="stock"></result>
+        <result property="productName" column="product_name"></result>
+        <result property="category" column="category"></result>
+        <result property="price" column="price"></result>
+        <result property="productDescription" column="product_description"></result>
+        <result property="productPhoto" column="product_photo"></result>
+        <result property="points" column="points"></result>
+        <result property="bestBefore" column="best_before"></result>
+
+    </resultMap>
+
+    <select id="findAll" resultMap="productMap">
+        select * from productTable;
+    </select>
+
+    <insert id="saveProduct" parameterType="Product" >
+        <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+        insert into productTable(stock, productName, category, productDescription, productPhoto, points, bestBefore)
+        values(#{stock}, #{product_name}, #{category}, #{product_description}, #{product_photo}, #{best_before});
+    </insert>
+
+    <update id="updateProduct" parameterType="Product">
+        update productTable set stock=#{stock}, productName=#{product_name}, category=#{category},
+        price=#{price}, productDescription=#{product_description}, points=#{points} where id=#{id};
+    </update>
+
+    <select id="findCustomerById" parameterType="java.lang.Long" resultMap="customerMap">
+        select * from customerTable where id=#{id};
+    </select>
+
+    <select id="findCustomerByName" parameterType="String" resultMap="customerMap">
+        select * from customerTable where username like #{name};
+    </select>
+
+    <delete id="deleteCustomerById" parameterType="java.lang.Long">
+        delete from customerTable where id=#{id};
+    </delete>
+
+    <delete id="deleteCustomerByName" parameterType="String">
+        delete from customerTable where username like #{name};
+    </delete>
+
+
+    <update id="addPointsToCustomerByID" parameterType="PurchasePoint">
+        update customerTable set points = points + #{points} where id=#{userId};
+    </update>
+
+</mapper>
