@@ -13,7 +13,7 @@
         <result property="email" column="email"></result>
         <result property="role" column="role"></result>
         <result property="birthday" column="birthday"></result>
-        <result property="phone_num" column="phoneNum"></result>
+        <result property="phoneNum" column="phone_num"></result>
         <result property="points" column="points"></result>
         <!-- <result property="address" column="address"></result>-->
         <!-- <result property="postCode" column="postCode"></result>-->

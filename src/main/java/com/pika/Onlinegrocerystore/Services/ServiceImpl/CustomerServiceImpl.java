@@ -4,20 +4,29 @@ import com.pika.Onlinegrocerystore.Services.CustomerService;
 import com.pika.Onlinegrocerystore.dao.ICustomerDao;
 import com.pika.Onlinegrocerystore.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+
 @Service
-public class CustomerServiceImpl implements CustomerService {
+    public class CustomerServiceImpl implements CustomerService {
 
-    private final ICustomerDao customerDao;
+    private ICustomerDao customerDao;
 
-    @Autowired
-    public CustomerServiceImpl(ICustomerDao customerDao) {
-        this.customerDao = customerDao;
-    }
-
+//    @Autowired
+//    may have problems, coz i closed error checking spring core: autowiring for bean class
+//    public CustomerServiceImpl(ICustomerDao customerDao) {
+//        this.customerDao = customerDao;
+//    }
+//
+//    // elliott sept4
+//    public CustomerServiceImpl(String s) {
+//
+//    }
 
     @Override
     public Customer findById(Long id) {
@@ -28,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> findAll() {
         List<Customer> result = customerDao.findAll();
-        return result;
+        return null;
     }
 
     @Override

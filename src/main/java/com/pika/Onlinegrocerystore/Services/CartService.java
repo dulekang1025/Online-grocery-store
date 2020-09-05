@@ -6,9 +6,9 @@ import com.pika.Onlinegrocerystore.domain.Product;
 import java.util.List;
 
 public interface CartService {
-    Cart addCart(Long userId);
-    Cart getCart(Long cartID);
-    List<Product> getCartList(Long userId);
-    void deleteCartItem(Long userId, Long itemId);
-    void clearCartItem(Long userId);
+    void addItem(Long userId);
+    void deleteItem(Long cartID);
+    List<Product> getAllItems(Long userId);
+    double getTotalPrice();
+    void clearCart(Long userId);
 }
