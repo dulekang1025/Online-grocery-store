@@ -7,11 +7,32 @@ import java.util.Date;
 import java.util.List;
 
 public interface IOrderDao {
+
     List<Order> findAll();
+    
+    void saveOrder(Order order);
 
-    void findOrderById(Long id);
+    Order findOrderById(Long id);
 
-    void deleteOrderById(Long id);
+    List<Order> findOrderByUserId(Long userId);
 
-    Double getTotalPrice();
+    List<Order> findOrderByDate(Date username);
+
+    //do not delete from database, just change order status
+//    void deleteOrder(Long id);
+
+    void updateOrder(Order order);
+
+
+
+
+//    /**
+//     * fuzzy query 模糊查询
+//     * @param username keyword order may contain 订单包含的关键字
+//     */
+//    List<Order> findOrderByName(String username);
+
+    //    void updateOrder(Order order);
+
+    //    void deleteOrder(Order order);
 }
