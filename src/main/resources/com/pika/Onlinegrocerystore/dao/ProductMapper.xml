@@ -10,7 +10,7 @@
         <!--  property is attributes in class， column is filed in database -->
         <result property="stock" column="stock"></result>
         <result property="productName" column="name"></result>
-        <result property="category" column="category_id"></result>
+        <!--<result property="category" column="category_id"></result>-->
         <result property="price" column="price"></result>
         <result property="productDescription" column="dscription"></result>
         <result property="points" column="points"></result>
@@ -22,34 +22,34 @@
         select * from productTable;
     </select>
 
-    <insert id="saveProduct" parameterType="Product" >
-        <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
-            select last_insert_id();
-        </selectKey>
-        insert into productTable(stock, productName, category, price, productDescription, points, bestBefore)
-        values(#{stock}, #{name}, #{category_id}, #{price}, #{dscription}, #{points}, #{best_before});
-    </insert>
+    <!--<insert id="saveProduct" parameterType="Product" >-->
+        <!--<selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">-->
+            <!--select last_insert_id();-->
+        <!--</selectKey>-->
+        <!--insert into productTable(stock, productName, category, price, productDescription, points, bestBefore)-->
+        <!--values(#{stock}, #{name}, #{category_id}, #{price}, #{dscription}, #{points}, #{best_before});-->
+    <!--</insert>-->
 
-    <update id="updateProduct" parameterType="Product">
-        update productTable set stock=#{stock}, productName=#{name}, category=#{category_id}, price=#{price},
-        productDescription=#{dscription}, points=#{points}, bestBefore=#{best_before}); where id=#{id};
-    </update>
+    <!--<update id="updateProduct" parameterType="Product">-->
+        <!--update productTable set stock=#{stock}, productName=#{name}, category=#{category_id}, price=#{price},-->
+        <!--productDescription=#{dscription}, points=#{points}, bestBefore=#{best_before}); where id=#{id};-->
+    <!--</update>-->
 
-    <select id="findProductById" parameterType="java.lang.Long" resultMap="productMap">
-        select * from productTable where id=#{id};
-    </select>
+    <!--<select id="findProductById" parameterType="java.lang.Long" resultMap="productMap">-->
+        <!--select * from productTable where id=#{id};-->
+    <!--</select>-->
 
-    <select id="findProductByName" parameterType="String" resultMap="productMap">
-        select * from productTable where productName like #{name};
-    </select>
+    <!--<select id="findProductByName" parameterType="String" resultMap="productMap">-->
+        <!--select * from productTable where productName like #{name};-->
+    <!--</select>-->
 
-    <delete id="deleteProductById" parameterType="java.lang.Long">
-        delete from productTable where id=#{id};
-    </delete>
+    <!--<delete id="deleteProductById" parameterType="java.lang.Long">-->
+        <!--delete from productTable where id=#{id};-->
+    <!--</delete>-->
 
-    <delete id="deleteProductByName" parameterType="String">
-        delete from productTable where productName like #{name};
-    </delete>
+    <!--<delete id="deleteProductByName" parameterType="String">-->
+        <!--delete from productTable where productName like #{name};-->
+    <!--</delete>-->
 
 
 </mapper>
