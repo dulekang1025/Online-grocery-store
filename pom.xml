@@ -54,6 +54,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.version}</version>
@@ -86,11 +92,11 @@
 		</dependency>
 
 
-		<!--<dependency>-->
-			<!--<groupId>javax.validation</groupId>-->
-			<!--<artifactId>validation-api</artifactId>-->
-			<!--<version>1.0.0.GA</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -199,15 +205,10 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
 		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>javax.persistence-api</artifactId>
-			<version>2.2</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
-
 	</dependencies>
 
 	<build>

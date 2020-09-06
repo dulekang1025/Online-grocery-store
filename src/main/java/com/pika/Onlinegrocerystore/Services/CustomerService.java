@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-// elliott added following line on Sept.4
-@Repository
+//// elliott added following line on Sept.4
+//@Repository
 public interface CustomerService {
 
     Customer findById(Long id);

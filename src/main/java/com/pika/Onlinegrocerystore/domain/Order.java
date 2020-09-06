@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Entity
 @Data
-@Table(name="Your_Order") //todo: will be changed when finish service layer
+//@Table(name="rrderTable") //todo: will be changed when finish service layer
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,8 +61,8 @@ public class Order implements Serializable {
 
     private int earnPoints;
 
-    @ManyToMany(targetEntity = Product.class)
-    private Map<Product, Integer> orderDetails;
+//    @ManyToMany(targetEntity = Product.class)
+//    private Map<Product, Integer> orderDetails;
 
     public Order() {
     }

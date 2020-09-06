@@ -23,6 +23,6 @@ public class Cart {
     private double sumPrice;
 
 //    @OneToMany(targetEntity = Product.class)
-    private Map<Product, Integer> productMap;
+//    private Map<Product, Integer> productMap;
 }
 
