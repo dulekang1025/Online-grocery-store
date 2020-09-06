@@ -13,5 +13,5 @@ public interface ProductService {
     void deleteById(Long id);
     //void deleteByName(int id);
     List<Product> findByName(String name);
-    List<Product> findByCategory(Category category);
+    List<Product> findByCategory(int categoryId);
 }

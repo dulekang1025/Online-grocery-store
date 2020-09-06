@@ -103,7 +103,7 @@ public class CustomerDaoTests {
     }
 
     @Test void testAddPointsToCustomerById() throws Exception{
-        customerDao.addPointsToCustomerByID(new PurchasePoint(1L, 5000));
+        customerDao.addPointsToCustomerByID(new PurchasePoint(5L, 6666));
     }
 
 //    List<Customer> findCustomerByVo(CustomerQueryVo vo);

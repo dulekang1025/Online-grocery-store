@@ -61,35 +61,35 @@ public class Customer implements UserDetails {
         return id;
     }
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public String getPhoneNum() {
-        return phoneNum;
-    }
-
-    public int getPoints() {
-        return points;
-    }
+//    @Override
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public String getRole() {
+//        return role;
+//    }
+//
+//    public Date getBirthday() {
+//        return birthday;
+//    }
+//
+//    public String getPhoneNum() {
+//        return phoneNum;
+//    }
+//
+//    public int getPoints() {
+//        return points;
+//    }
 
     // 加了构造方法就不报错了, for testing
     public Customer(Long id, String username, String password, String email, String role, Date birthday, String phoneNum) {

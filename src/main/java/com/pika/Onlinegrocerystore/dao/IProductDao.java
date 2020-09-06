@@ -15,10 +15,14 @@ public interface IProductDao {
 
     Product findProductById(Long userId);
 
+    List<Product> findProductByCategory(int categoryId);
+
     List<Product> findProductByName(String username);
 
     void deleteProductById(Long userId);
 
     void deleteProductByName(String username);
+
+
 
 }
