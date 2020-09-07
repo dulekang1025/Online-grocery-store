@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
 import java.util.Random;
+import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,41 +54,50 @@ public class ManagerDaoTests {
     @Test
     public void testFindAllManager() throws Exception{
         List<Manager> managers = managerDao.findAll();
-        for(Manager manager:  managers) printALlInfo(manager);
+        //for(Manager manager:  managers) printALlInfo(manager);
+        assertNotNull(managers);
     }
 
     @Test
     public void testFindManagerById() throws Exception{
         Manager manager = managerDao.findManagerById(1L);
-        printALlInfo(manager);
+        //printALlInfo(manager);
+        assertEquals(1L, (long)manager.getId());
     }
 
     @Test
     public void testFindManagerByName() throws Exception{
         List<Manager> managers = managerDao.findManagerByName("%userName1%");
-        for(Manager manager:  managers) printALlInfo(manager);
+        //for(Manager manager:  managers) printALlInfo(manager);
+        assertNotNull(managers);
     }
 
     @Test
     public void testSaveUser() throws Exception{
-        Manager manager = new Manager("userName1", "testSaveUser", "example@outlook.com",
+        Manager manager = new Manager("UniqueName", "testSaveUser", "example@outlook.com",
                 "1");
 
         managerDao.saveManager(manager);
+        List<Manager> getByName = managerDao.findManagerByName("UniqueName");
+
+        for(Manager m : getByName)
+            assertEquals("UniqueName", m.getUsername());
     }
 
     @Test
     public void testUpdateManager() throws Exception{
         Random random = new Random();
         int randomValue = random.nextInt(Integer.MAX_VALUE);
-        Manager manager = new Manager(3L, "good", "userName", "example3@outlook.com",
+        Manager manager = new Manager(3L, "good", "userName", randomValue + "@outlook.com",
                 "1");
         managerDao.updateManager(manager);
+        assertEquals(randomValue + "@outlook.com", managerDao.findManagerById(3L).getEmail());
     }
 
     @Test
     public void testDeleteManagerById() throws Exception{
         managerDao.deleteManagerById(2L);
+        assertNull(managerDao.findManagerById(2L));
     }
 
 }
