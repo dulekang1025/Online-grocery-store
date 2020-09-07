@@ -16,7 +16,7 @@ public interface IOrderDao {
 
     List<Order> findOrderByUserId(Long userId);
 
-    List<Order> findOrderByDate(Date username);
+    List<Order> findOrderByDate(Date date);
 
     //do not delete from database, just change order status
 //    void deleteOrder(Long id);
