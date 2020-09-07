@@ -98,7 +98,7 @@ public class CustomerDaoTests {
         Customer customer = new Customer(3L, "good", "userName", "example3@outlook.com",
                 "1", new Date(2015, 02, 11), Integer.toString(randomValue));
         customerDao.updateCustomer(customer);
-        assertEquals(Integer.toString(randomValue), customer.getPhoneNum());
+        assertEquals(Integer.toString(randomValue), customerDao.findCustomerById(3L).getPhoneNum());
     }
 
     @Test
