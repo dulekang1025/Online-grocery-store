@@ -17,6 +17,7 @@ import java.util.Random;
 
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.Assert.*;
 
 
 @SpringBootTest(classes={com.pika.Onlinegrocerystore.dao.ICustomerDao.class})
@@ -66,21 +67,28 @@ public class CustomerDaoTests {
     @Test
     public void testFindCustomerById() throws Exception{
         Customer customer = customerDao.findCustomerById(1L);
-        printALlInfo(customer);
+        //printALlInfo(customer);
+        assertEquals(1L, (long)customer.getId());
     }
 
     @Test
     public void testFindCustomerByName() throws Exception{
         List<Customer> customers = customerDao.findCustomerByName("%userName1%");
-        for(Customer customer:  customers) printALlInfo(customer);
+        //for(Customer customer:  customers) printALlInfo(customer);
+        assertNotNull(customers);
     }
 
     @Test
     public void testSaveUser() throws Exception{
-        Customer customer = new Customer("userName1", "testSaveUser", "example@outlook.com",
+        Customer customer = new Customer("UniqueName", "testSaveUser", "example@outlook.com",
                 "1", new Date(2015, 02, 11), "13911112345");
 
         customerDao.saveCustomer(customer);
+
+        List<Customer> getByName = customerDao.findCustomerByName("UniqueName");
+
+        for(Customer c:  getByName)
+            assertEquals("UniqueName", c.getUsername());
     }
 
     @Test
@@ -90,20 +98,28 @@ public class CustomerDaoTests {
         Customer customer = new Customer(3L, "good", "userName", "example3@outlook.com",
                 "1", new Date(2015, 02, 11), Integer.toString(randomValue));
         customerDao.updateCustomer(customer);
+        assertEquals(Integer.toString(randomValue), customer.getPhoneNum());
     }
 
     @Test
     public void testDeleteCustomerById() throws Exception{
         customerDao.deleteCustomerById(2L);
+        Customer customer = customerDao.findCustomerById(2L);
+        assertNull(customer);
     }
 
     @Test
     public void testDeleteCustomerByName() throws Exception{
-        customerDao.deleteCustomerByName("%userName1%");
+        customerDao.deleteCustomerByName("UniqueName");
+        List<Customer> getByName = customerDao.findCustomerByName("UniqueName");
+        assertEquals(0, getByName.size());
     }
 
     @Test void testAddPointsToCustomerById() throws Exception{
+        int prevPoints = customerDao.findCustomerById(5L).getPoints();
         customerDao.addPointsToCustomerByID(new PurchasePoint(5L, 6666));
+        int curPoints = customerDao.findCustomerById(5L).getPoints();
+        assertEquals(6666, curPoints - prevPoints);
     }
 
 //    List<Customer> findCustomerByVo(CustomerQueryVo vo);
