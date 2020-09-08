@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pika.Onlinegrocerystore.dao.ICartDao">
+
+
+    <resultMap id="cartMap" type="Cart">
+        <id property="id" column="id"></id>
+        <!--  property is attributes in class， column is in database -->
+        <result property="userId" column="user_id"></result>
+        <result property="sumPrice" column="sum_price"></result>
+<!--        <result property="productMap" column="product_map"></result>-->
+    </resultMap>
+
+    <select id="findAll" resultMap="cartMap">
+        select * from cartTable;
+    </select>
+
+    <insert id="saveCart"  parameterType="Cart">
+        <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
+            select last_insert_id();
+        </selectKey>
+            insert into cartTable(id,user_id)
+            values (#{id},#{userId});
+
+    </insert>
+
+    <update id="addItemById" >
+        update cartItems
+        set quantity=cartItems.quantity+1
+        from cartItems
+        where caet_id=#{cartId} and product_id=#{itemId};
+    </update>>
+
+    <update id="deleteItemById" >
+        update cartItems
+        set quantity=cartItems.quantity-1
+        from cartItems
+        where caet_id=#{cartId} and product_id=#{itemId};
+    </update>>
+
+
+    <select id="calculateTotalPrice" resultType="Double">
+        select * from cartTable where id= #{name};
+    </select>
+
+
+    <update id="clearCart" parameterType="java.lang.Long">
+
+    </update>
+
+</mapper>
