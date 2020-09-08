@@ -17,16 +17,16 @@ import java.util.List;
 
     private ICustomerDao customerDao;
 
-//    @Autowired
+    @Autowired
 //    may have problems, coz i closed error checking spring core: autowiring for bean class
-//    public CustomerServiceImpl(ICustomerDao customerDao) {
-//        this.customerDao = customerDao;
-//    }
-//
-//    // elliott sept4
-//    public CustomerServiceImpl(String s) {
-//
-//    }
+    public CustomerServiceImpl(ICustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
+
+    // elliott sept4
+    public CustomerServiceImpl(String s) {
+
+    }
 
     @Override
     public Customer findById(Long id) {

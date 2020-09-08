@@ -22,7 +22,7 @@ public class Cart {
     private Long userId;
     private double sumPrice;
 
-    @OneToMany(targetEntity = Product.class)
-    private Map<Product, Integer> productMap;
+//    @OneToMany(targetEntity = Product.class)
+//    private Map<Product, Integer> productMap;
 }
 
