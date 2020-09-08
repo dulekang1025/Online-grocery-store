@@ -13,7 +13,7 @@ public interface IProductDao {
 
     void updateProduct(Product product);
 
-    Product findProductById(Long userId);
+    Product findProductById(Long Id);
 
     List<Product> findProductByCategory(int categoryId);
 

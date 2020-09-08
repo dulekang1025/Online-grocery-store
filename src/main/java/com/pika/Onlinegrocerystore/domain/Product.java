@@ -1,5 +1,6 @@
 package com.pika.Onlinegrocerystore.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -13,16 +14,17 @@ import java.sql.Date;
 @Entity
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private int stock;
+    private int inStock;
     private String productName;
-    private Category category;
-    private int categoryNum;
+//    private Category category;
+    private int categoryId;
     private double price;
     //todo Category类和Image类在productMapper.xml中可能需要改
 
@@ -40,12 +42,12 @@ public class Product {
         this.id = id;
     }
 
-    public int getStock() {
-        return stock;
+    public int getInStock() {
+        return inStock;
     }
 
-    public void setStock(int stock) {
-        stock = stock;
+    public void setInStock(int inStock) {
+        this.inStock = inStock;
     }
 
     public String getProductName() {
@@ -57,11 +59,11 @@ public class Product {
     }
 
     public int getCategoryNum() {
-        return categoryNum;
+        return categoryId;
     }
 
     public void setCategoryNum(int categoryNum) {
-        this.categoryNum = categoryNum;
+        this.categoryId = categoryNum;
     }
 
     public double getPrice() {
