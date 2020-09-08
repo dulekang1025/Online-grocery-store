@@ -61,8 +61,8 @@ public class Order implements Serializable {
 
     private int earnPoints;
 
-//    @ManyToMany(targetEntity = Product.class)
-//    private Map<Product, Integer> orderDetails;
+    @ManyToMany(targetEntity = Product.class)
+    private Map<Product, Integer> orderDetails;
 
     public Order() {
     }
