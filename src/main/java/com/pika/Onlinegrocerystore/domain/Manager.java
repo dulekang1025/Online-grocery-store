@@ -75,13 +75,6 @@ public class Manager implements UserDetails {
         return Arrays.asList(new SimpleGrantedAuthority(("ROLE_ADMIN")));
     }
 
-
-
-//    @Override
-//    public String getUsername() {
-//        return null;
-//    }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

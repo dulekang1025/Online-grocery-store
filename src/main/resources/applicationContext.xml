@@ -19,7 +19,7 @@
     </context:component-scan>
 
     <!-- spring整合mybatis   -->
-    <!-- 配置连接池   -->
+    <!-- 配置连接池   --> <!-- sql 是spring 用的，sql config xml 是给mybatis用的-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://3.96.65.40:3306/grocery"/>
