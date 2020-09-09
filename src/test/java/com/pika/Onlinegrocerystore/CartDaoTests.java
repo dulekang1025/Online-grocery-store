@@ -1,6 +1,9 @@
 package com.pika.Onlinegrocerystore;
 
+import com.pika.Onlinegrocerystore.dao.ICartDao;
 import com.pika.Onlinegrocerystore.dao.ICustomerDao;
+import com.pika.Onlinegrocerystore.domain.Cart;
+import com.pika.Onlinegrocerystore.domain.ItemPair;
 import com.pika.Onlinegrocerystore.domain.Product;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -21,7 +24,7 @@ import static org.junit.Assert.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CartDaoTests {
     private InputStream in;
-    private ICustomerDao cartDao;
+    private ICartDao cartDao;
     private SqlSession sqlSession;
 
     @BeforeAll
@@ -29,7 +32,7 @@ public class CartDaoTests {
         in = Resources.getResourceAsStream("SqlMapConfig.xml");
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
         sqlSession = factory.openSession(true);
-        cartDao = sqlSession.getMapper(ICustomerDao.class);
+        cartDao = sqlSession.getMapper(ICartDao.class);
         System.out.println(in);
     }
 
@@ -45,6 +48,59 @@ public class CartDaoTests {
 
     @Test
     public void findAllTest(){
-
+        List<Cart> carts = cartDao.findAll();
+//        for(Cart cart : carts){
+//            System.out.println(cart.getCartId());
+//        }
+        assertNotEquals(0, carts.size());
     }
+
+    @Test
+    public void deleteCartByIdTest(){
+        cartDao.deleteCartById(2L);
+        assertNull(cartDao.findCartById(2L));
+    }
+
+    @Test
+    public void saveCartTest(){
+        Cart cart = new Cart(3L, 4L, 100.99);
+        cartDao.saveCart(cart);
+        Cart getCart = cartDao.findCartById(3L);
+        assertEquals(3, (long)getCart.getCartId());
+    }
+
+    @Test
+    public void addItemByIdTest(){
+        List<ItemPair> itemPairs = cartDao.findAllCartItems(1L);
+        int num = 0;
+        for(ItemPair itemPair : itemPairs){
+            if(itemPair.getProductId().equals(2L)){
+                num += itemPair.getQuantity();
+            }
+        }
+        cartDao.addItemById(1L, 2L);
+        List<ItemPair> itemPairs2 = cartDao.findAllCartItems(1L);
+        int num2 = 0;
+        for(ItemPair itemPair : itemPairs2){
+            if(itemPair.getProductId().equals(2L)){
+                num2 += itemPair.getQuantity();
+            }
+        }
+        assertEquals(num + 1, num2);
+    }
+
+    @Test
+    public void addItemPairTest(){
+        ItemPair itemPair = new ItemPair(2L, 2L, 1);
+        cartDao.addItemPair(itemPair);
+        assertEquals(1, cartDao.checkItemById(2L, 2L).getQuantity());
+    }
+//    @Test
+//    public void Test(){
+//
+//    }
+//    @Test
+//    public void Test(){
+//
+//    }
 }

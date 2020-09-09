@@ -40,7 +40,7 @@ public class Manager implements UserDetails {
         this.role = role;
     }
 
-    // Override constructor, no id, for testing
+    // Override constructor, no cartId, for testing
     public Manager(String username, String password, String email, String role) {
         this.username = username;
         this.password = password;

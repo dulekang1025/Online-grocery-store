@@ -68,7 +68,7 @@ public class Customer implements UserDetails {
         this.phoneNum = phoneNum;
     }
 
-    // Override constructor, no id, for testing
+    // Override constructor, no cartId, for testing
     public Customer(String username, String password, String email, String role, Date birthday, String phoneNum) {
         this.username = username;
         this.password = password;

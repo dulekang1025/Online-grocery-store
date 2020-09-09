@@ -61,7 +61,8 @@ public class CustomerDaoTests {
     @Test
     public void testFindAllCustomer() throws Exception{
         List<Customer> customers = customerDao.findAll();
-        for(Customer customer:  customers) printALlInfo(customer);
+//        for(Customer customer:  customers) printALlInfo(customer);
+        assertNotEquals(0, customers.size());
     }
 
     @Test

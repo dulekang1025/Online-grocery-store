@@ -46,7 +46,7 @@ public class ProductDaoTests {
     @Test
     public void findAllTest(){
         List<Product> products = productDao.findAll();
-        assertNotNull(products);
+        assertNotEquals(0, products.size());
     }
 
     @Test

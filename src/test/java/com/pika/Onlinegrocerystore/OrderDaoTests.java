@@ -51,7 +51,7 @@ public class OrderDaoTests {
     @Test
     public void findAllTest(){
         List<Order> orders = orderDao.findAll();
-        assertNotNull(orders);
+        assertNotEquals(0, orders.size());
     }
 
 

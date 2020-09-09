@@ -19,7 +19,7 @@ public interface IOrderDao {
     List<Order> findOrderByDate(Date date);
 
     //do not delete from database, just change order status
-//    void deleteOrder(Long id);
+//    void deleteOrder(Long cartId);
 
     void updateOrder(Order order);
 

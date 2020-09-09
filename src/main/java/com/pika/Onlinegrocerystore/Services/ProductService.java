@@ -11,7 +11,7 @@ public interface ProductService {
     void update(Product product);
     void create(Product product);
     void deleteById(Long id);
-    //void deleteByName(int id);
+    //void deleteByName(int cartId);
     List<Product> findByName(String name);
     List<Product> findByCategory(int categoryId);
 }

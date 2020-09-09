@@ -55,7 +55,7 @@ public class ManagerDaoTests {
     public void testFindAllManager() throws Exception{
         List<Manager> managers = managerDao.findAll();
         //for(Manager manager:  managers) printALlInfo(manager);
-        assertNotNull(managers);
+        assertNotEquals(0, managers.size());
     }
 
     @Test
