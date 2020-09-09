@@ -27,7 +27,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addItem(Long cartId, Long productId) {
-        cartDao.addItemById(cartId, productId);
+        // first check if (carId, productId) exist in cartItems table
+        // if not exist, call insert function
+        // if exist, call update function
+        ItemPair itemPair = cartDao.checkItemById(cartId, productId);
+        if(itemPair == null){
+            ItemPair newItempair = new ItemPair(cartId, productId, 1);
+            cartDao.addItemPair(newItempair);
+        }else{
+            cartDao.addItemById(cartId, productId);
+        }
     }
 
     @Override
@@ -56,6 +65,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void clearCart(Long cartId) {
-
+        cartDao.clearCart(cartId);
     }
 }
