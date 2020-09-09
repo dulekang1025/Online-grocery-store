@@ -13,13 +13,13 @@ public interface IProductDao {
 
     void updateProduct(Product product);
 
-    Product findProductById(Long Id);
+    Product findProductById(Long id);
 
     List<Product> findProductByCategory(int categoryId);
 
     List<Product> findProductByName(String username);
 
-    void deleteProductById(Long userId);
+    void deleteProductById(Long id);
 
     void deleteProductByName(String username);
 

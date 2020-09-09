@@ -63,7 +63,7 @@ public class ProductDaoTests {
     @Test
     public void updateProductTest(){
         Product product = new Product(2L,100,"Mushroom",
-                1,1.00,"White Mushroom",
+                1,1.010,"White Mushroom",
                 null,1,new Date(2020,9,20));
         productDao.updateProduct(product);
 

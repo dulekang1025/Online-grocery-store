@@ -1,20 +1,26 @@
 package com.pika.Onlinegrocerystore.dao;
 
-import com.pika.Onlinegrocerystore.domain.Customer;
-import com.pika.Onlinegrocerystore.domain.Product;
-import com.pika.Onlinegrocerystore.domain.PurchasePoint;
+import com.pika.Onlinegrocerystore.domain.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface ICartDao {
-    List<Product> findAll();
 
-    void addItemById(Long userId);
+    //for manager only
+    List<Cart> findAll();
 
-    void deleteItemById(Long userId);
+    List<ItemPair> findAllCartItems(Long cartId);
 
-    double calculateTotalPrice();
+    void addItemById(@Param("cartId")Long cartId, @Param("itemId") Long itemId);
 
-    void clearCart();
+    void deleteItemById(@Param("cartId")Long cartId, @Param("itemId") Long itemId);
+
+    double calculateTotalPrice(@Param("cartId")Long cartId);
+
+    void clearCart(Long cartId);
+
+    void saveCart(Cart cart);
+
 }
 

@@ -42,6 +42,7 @@
         <mapper resource="com/pika/Onlinegrocerystore/dao/ManagerMapper.xml"></mapper>
         <mapper resource="com/pika/Onlinegrocerystore/dao/ProductMapper.xml"></mapper>
         <mapper resource="com/pika/Onlinegrocerystore/dao/OrderMapper.xml"></mapper>
+        <mapper resource="com/pika/Onlinegrocerystore/dao/CartMapper.xml"></mapper>
 <!--        当Java doc包内的类名(接口名)与resources中xml同名，可以用下方语句引用包地址，从而替换上面语句-->
 <!--        <package name="com.pika.Onlinegrocerystore.dao"></package>-->
     </mappers>
