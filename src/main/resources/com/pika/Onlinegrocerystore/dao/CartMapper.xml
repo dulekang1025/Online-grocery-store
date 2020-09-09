@@ -10,11 +10,25 @@
         <!--  property is attributes in class， column is in database -->
         <result property="userId" column="user_id"></result>
         <result property="sumPrice" column="sum_price"></result>
+        <result property="quantity" column="quantity"></result>
+        <result property="productId" column="product_id"></result>
 <!--        <result property="productMap" column="product_map"></result>-->
+    </resultMap>
+
+    <resultMap id="cartItemMap" type="ItemPair">
+        <id property="id" column="id"></id>
+
+        <result property="quantity" column="quantity"></result>
+        <result property="productId" column="product_id"></result>
+        <!--        <result property="productMap" column="product_map"></result>-->
     </resultMap>
 
     <select id="findAll" resultMap="cartMap">
         select * from cartTable;
+    </select>
+
+    <select id="findAllCartItems" resultMap="cartItemMap">
+        select * from cartItems where cart_id=#{cartId};
     </select>
 
     <insert id="saveCart"  parameterType="Cart">
@@ -31,14 +45,14 @@
         set quantity=cartItems.quantity+1
         from cartItems
         where caet_id=#{cartId} and product_id=#{itemId};
-    </update>>
+    </update>
 
     <update id="deleteItemById" >
         update cartItems
         set quantity=cartItems.quantity-1
         from cartItems
         where caet_id=#{cartId} and product_id=#{itemId};
-    </update>>
+    </update>
 
 
     <select id="calculateTotalPrice" resultType="Double">
