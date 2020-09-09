@@ -1,4 +1,4 @@
-package com.pika.Onlinegrocerystore;
+package com.pika.Onlinegrocerystore.dao;
 
 import com.pika.Onlinegrocerystore.dao.ICartDao;
 import com.pika.Onlinegrocerystore.dao.ICustomerDao;

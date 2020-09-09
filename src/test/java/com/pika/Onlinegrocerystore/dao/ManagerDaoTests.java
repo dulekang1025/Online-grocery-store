@@ -1,4 +1,4 @@
-package com.pika.Onlinegrocerystore;
+package com.pika.Onlinegrocerystore.dao;
 
 import com.pika.Onlinegrocerystore.dao.IManagerDao;
 import com.pika.Onlinegrocerystore.domain.Manager;
