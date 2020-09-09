@@ -63,14 +63,17 @@ public class CartDaoTests {
 
     @Test
     public void saveCartTest(){
-        Cart cart = new Cart(3L, 4L, 100.99);
+        Cart cart = new Cart(5L, 3L, 666.66);
         cartDao.saveCart(cart);
-        Cart getCart = cartDao.findCartById(3L);
-        assertEquals(3, (long)getCart.getCartId());
+        Cart getCart = cartDao.findCartById(5L);
+        assertEquals(5, (long)getCart.getCartId());
+        cartDao.deleteCartById(5L);
     }
 
     @Test
     public void addItemByIdTest(){
+        ItemPair newItemPair = new ItemPair(1L, 2L, 1);
+        cartDao.addItemPair(newItemPair);
         List<ItemPair> itemPairs = cartDao.findAllCartItems(1L);
         int num = 0;
         for(ItemPair itemPair : itemPairs){
@@ -90,17 +93,68 @@ public class CartDaoTests {
     }
 
     @Test
-    public void addItemPairTest(){
-        ItemPair itemPair = new ItemPair(2L, 2L, 1);
-        cartDao.addItemPair(itemPair);
-        assertEquals(1, cartDao.checkItemById(2L, 2L).getQuantity());
+    public void deleteItemByIdTest(){
+        List<ItemPair> itemPairs = cartDao.findAllCartItems(1L);
+        int num = 0;
+        for(ItemPair itemPair : itemPairs){
+            if(itemPair.getProductId().equals(2L)){
+                num += itemPair.getQuantity();
+            }
+        }
+        cartDao.deleteItemById(1L, 2L);
+        List<ItemPair> itemPairs2 = cartDao.findAllCartItems(1L);
+        int num2 = 0;
+        for(ItemPair itemPair : itemPairs2){
+            if(itemPair.getProductId().equals(2L)){
+                num2 += itemPair.getQuantity();
+            }
+        }
+        assertEquals(num - 1, num2);
     }
-//    @Test
-//    public void Test(){
-//
-//    }
-//    @Test
-//    public void Test(){
-//
-//    }
+
+    @Test
+    public void addItemPairTest(){
+        ItemPair itemPair = new ItemPair(1L, 4L, 1);
+        cartDao.addItemPair(itemPair);
+        assertEquals(1, cartDao.checkItemById(1L, 4L).getQuantity());
+    }
+    @Test
+    public void checkItemByIdTest(){
+        ItemPair itemPair = cartDao.checkItemById(1L, 4L);
+        assertNotNull(itemPair);
+        ItemPair notExistItemPair = cartDao.checkItemById(1L, 100L);
+        assertNull(notExistItemPair);
+        cartDao.clearCart(1L);
+    }
+    @Test
+    public void findAllCartItemsTest(){
+        ItemPair itemPair1 = new ItemPair(3L, 20L, 1);
+        cartDao.addItemPair(itemPair1);
+        ItemPair itemPair2 = new ItemPair(3L, 18L, 1);
+        cartDao.addItemPair(itemPair2);
+        ItemPair itemPair3 = new ItemPair(3L, 16L, 1);
+        cartDao.addItemPair(itemPair3);
+        List<ItemPair> itemPairs = cartDao.findAllCartItems(3L);
+        assertEquals(3, itemPairs.size());
+        cartDao.clearCart(3L);
+    }
+
+    @Test
+    public void clearCartTest(){
+        ItemPair itemPair1 = new ItemPair(3L, 20L, 1);
+        cartDao.addItemPair(itemPair1);
+        ItemPair itemPair2 = new ItemPair(3L, 18L, 1);
+        cartDao.addItemPair(itemPair2);
+        ItemPair itemPair3 = new ItemPair(3L, 16L, 1);
+        cartDao.addItemPair(itemPair3);
+        cartDao.clearCart(3L);
+        List<ItemPair> itemPairs = cartDao.findAllCartItems(3L);
+        assertEquals(0, itemPairs.size());
+    }
+
+    @Test
+    public void findCartByIdTest(){
+        Cart cart = cartDao.findCartById(1L);
+        assertEquals(1, (long)cart.getCartId());
+    }
 }
