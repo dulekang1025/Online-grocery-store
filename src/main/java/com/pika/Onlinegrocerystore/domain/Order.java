@@ -61,9 +61,30 @@ public class Order implements Serializable {
 
     private int earnPoints;
 
-//    @ManyToMany(targetEntity = Product.class)
-//    private Map<Product, Integer> orderDetails;
+    @ManyToMany(targetEntity = Product.class)
+    private Map<Product, Integer> orderDetails;
 
     public Order() {
+    }
+
+    public Order(Long orderId, Customer customer, @NotBlank(message = "Name is required") String name,
+                 @NotBlank(message = "State is required") String state,
+                 @NotBlank(message = "City is required") String city,
+                 @NotBlank(message = "Street is required") String street,
+                 @NotBlank(message = "Zip code is required") String zip,
+                 @CreditCardNumber(message = "Not a valid credit card number") String ccNumber,
+                 String ccExpiration, String ccCVV, Double sumPrice, Date createTime) {
+        this.orderId = orderId;
+        this.customer = customer;
+        this.name = name; // todo what does name refers to in Order class?
+        this.state = state;
+        this.city = city;
+        this.street = street;
+        this.zip = zip;
+        this.ccNumber = ccNumber;
+        this.ccExpiration = ccExpiration;
+        this.ccCVV = ccCVV;
+        this.sumPrice = sumPrice;
+        this.createTime = createTime;
     }
 }

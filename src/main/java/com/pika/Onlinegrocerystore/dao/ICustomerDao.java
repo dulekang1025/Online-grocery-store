@@ -6,8 +6,10 @@ import com.pika.Onlinegrocerystore.domain.Customer;
 import com.pika.Onlinegrocerystore.domain.CustomerQueryVo;
 import com.pika.Onlinegrocerystore.domain.PurchasePoint;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 
 public interface ICustomerDao {
 

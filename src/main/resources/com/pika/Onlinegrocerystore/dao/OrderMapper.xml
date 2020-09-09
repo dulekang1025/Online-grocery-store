@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pika.dao.IUserDao">
+<mapper namespace="com.pika.Onlinegrocerystore.dao.IOrderDao">
 
-    <resultMap id="orderMap" type="com.pika.domain.Order">
+    <resultMap id="orderMap" type="Order">
         <id property="orderId" column="order_id"></id>
         <!--  property is attributes in class， column is in database -->
         <result property="customer.id" column="customer_id"></result>

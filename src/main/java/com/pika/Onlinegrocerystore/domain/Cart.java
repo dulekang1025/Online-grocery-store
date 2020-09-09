@@ -1,10 +1,7 @@
 
 package com.pika.Onlinegrocerystore.domain;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -12,12 +9,15 @@ import java.util.Map;
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC,force = true)
+@Getter
+@Setter
+@AllArgsConstructor
 //@RequiredArgsConstructor
 public class Cart {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private Long cartId;
 
     private Long userId;
     private double sumPrice;

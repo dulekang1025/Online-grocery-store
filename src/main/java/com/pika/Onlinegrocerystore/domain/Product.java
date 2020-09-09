@@ -1,5 +1,6 @@
 package com.pika.Onlinegrocerystore.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -13,15 +14,17 @@ import java.sql.Date;
 @Entity
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    private int Stock;
+    private int inStock;
     private String productName;
-    private int categoryNum;
+//    private Category category;
+    private int categoryId;
     private double price;
     //todo Category类和Image类在productMapper.xml中可能需要改
 

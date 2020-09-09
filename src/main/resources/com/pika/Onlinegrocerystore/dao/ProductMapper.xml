@@ -7,15 +7,14 @@
 
     <resultMap id="productMap" type="Product">
         <id property="id" column="id"></id>
-        <!--  property is attributes in class， column is field in database -->
-        <result property="stock" column="stock"></result>
-        <result property="productName" column="name"></result>
-        <result property="categoryNum" column="category_id"></result>
-        <result property="id" column="id"></result>
+        <!--  property is attributes in class， column is filed in database -->
+        <result property="inStock" column="stock"></result>
+        <result property="productName" column="product_name"></result>
+        <result property="categoryId" column="category_id"></result>
         <result property="price" column="price"></result>
-        <result property="productDescription" column="dscription"></result>
+        <result property="productDescription" column="description"></result>
         <result property="points" column="points"></result>
-        <result property="bestBefore" column="best_before"></result>
+        <result property="bestBefore" column="best_Before"></result>
 
     </resultMap>
 
@@ -23,17 +22,17 @@
         select * from productTable;
     </select>
 
-    <insert id="saveProduct" parameterType="Product" >
+    <insert id="saveProduct" parameterType="Product">
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
-        insert into productTable(stock, productName, category_id, price, productDescription, points, bestBefore)
-        values(#{stock}, #{name}, #{categoryNum}, #{price}, #{dscription}, #{points}, #{best_before});
+        insert into productTable(stock, product_name, category_id, price, description, points, best_before)
+        values(#{inStock}, #{productName}, #{categoryId}, #{price}, #{productDescription}, #{points}, #{bestBefore});
     </insert>
 
     <update id="updateProduct" parameterType="Product">
-        update productTable set stock=#{stock}, productName=#{name}, category_id=#{categoryNum}, price=#{price},
-        productDescription=#{dscription}, points=#{points}, bestBefore=#{best_before}); where id=#{id};
+        update productTable set stock=#{inStock}, product_name=#{productName}, category_id=#{categoryId}, price=#{price},
+        description=#{productDescription}, points=#{points}, best_before=#{bestBefore} where id=#{id};
     </update>
 
     <select id="findProductById" parameterType="java.lang.Long" resultMap="productMap">
@@ -41,7 +40,7 @@
     </select>
 
     <select id="findProductByName" parameterType="String" resultMap="productMap">
-        select * from productTable where productName like #{name};
+        select * from productTable where product_name like #{name};
     </select>
 
     <delete id="deleteProductById" parameterType="java.lang.Long">
@@ -49,7 +48,7 @@
     </delete>
 
     <delete id="deleteProductByName" parameterType="String">
-        delete from productTable where productName like #{name};
+        delete from productTable where product_name like #{name};
     </delete>
 
 

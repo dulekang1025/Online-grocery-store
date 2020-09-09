@@ -22,5 +22,13 @@ public interface ICartDao {
 
     void saveCart(Cart cart);
 
+    Cart findCartById(Long cartId);
+
+    void deleteCartById(Long cartId);
+
+    void addItemPair(ItemPair itemPair);
+
+    ItemPair checkItemById(@Param("cartId")Long cartId, @Param("itemId") Long itemId);
+
 }
 

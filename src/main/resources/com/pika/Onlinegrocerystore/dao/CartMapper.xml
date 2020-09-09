@@ -6,18 +6,17 @@
 
 
     <resultMap id="cartMap" type="Cart">
-        <id property="id" column="id"></id>
+        <id property="cartId" column="cart_id"></id>
         <!--  property is attributes in class， column is in database -->
         <result property="userId" column="user_id"></result>
         <result property="sumPrice" column="sum_price"></result>
-        <result property="quantity" column="quantity"></result>
-        <result property="productId" column="product_id"></result>
+        <!--<result property="quantity" column="quantity"></result>-->
+        <!--<result property="productId" column="product_id"></result>-->
 <!--        <result property="productMap" column="product_map"></result>-->
     </resultMap>
 
     <resultMap id="cartItemMap" type="ItemPair">
-        <id property="id" column="id"></id>
-
+        <id property="cartId" column="cart_id"></id>
         <result property="quantity" column="quantity"></result>
         <result property="productId" column="product_id"></result>
         <!--        <result property="productMap" column="product_map"></result>-->
@@ -27,31 +26,46 @@
         select * from cartTable;
     </select>
 
+    <select id="findCartById" resultMap="cartMap">
+        select * from cartTable where cart_id=#{cartId};
+    </select>
+
     <select id="findAllCartItems" resultMap="cartItemMap">
         select * from cartItems where cart_id=#{cartId};
     </select>
 
+    <select id="checkItemById" resultMap="cartItemMap">
+        select * from cartItems where cart_id=#{cartId} and product_id=#{itemId}
+    </select>
+
     <insert id="saveCart"  parameterType="Cart">
-        <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
+        <selectKey keyProperty="cartId" keyColumn="cart_id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
-            insert into cartTable(id,user_id)
-            values (#{id},#{userId});
+            insert into cartTable(cart_id,user_id, sum_price)
+            values (#{cartId},#{userId}, #{sumPrice});
 
     </insert>
+
+    <insert id="addItemPair"  parameterType="ItemPair">
+        insert into cartItems(cart_id,product_id, quantity)
+        values (#{cartId},#{productId}, #{quantity});
+    </insert>
+
+    <delete id="deleteCartById" parameterType="java.lang.Long">
+        delete from cartTable where cart_id=#{cartId};
+    </delete>
 
     <update id="addItemById" >
         update cartItems
         set quantity=cartItems.quantity+1
-        from cartItems
-        where caet_id=#{cartId} and product_id=#{itemId};
+        where cart_id=#{cartId} and product_id=#{itemId};
     </update>
 
     <update id="deleteItemById" >
         update cartItems
         set quantity=cartItems.quantity-1
-        from cartItems
-        where caet_id=#{cartId} and product_id=#{itemId};
+        where cart_id=#{cartId} and product_id=#{itemId};
     </update>
 
 
@@ -61,7 +75,7 @@
 
 
     <update id="clearCart" parameterType="java.lang.Long">
-
+        delete from cartItems where cart_id=#{cartId};
     </update>
 
 </mapper>

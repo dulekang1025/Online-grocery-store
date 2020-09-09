@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteById(Long id) { //todo: impl by controller
-//        orderDao.deleteOrder(id);
+//        orderDao.deleteOrder(cartId);
     }
 
     @Override
