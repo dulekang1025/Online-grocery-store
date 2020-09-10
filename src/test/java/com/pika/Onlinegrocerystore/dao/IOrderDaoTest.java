@@ -83,7 +83,7 @@ class IOrderDaoTest {
 
         orderDao.addItemToOrder(1L,3L,10);
 
-        Order order = new Order(1L, 1L,"UniqueName", "QC", "Montreal",
+        Order order = new Order(30L, 1L,"UniqueName", "QC", "Montreal",
                 "5000","H3H1P8", "5510290054716567",
                 "0722","011",1000.00,new Date(2015, 02, 11), OrderStatus.Awaiting_Payment,520,list);
 
