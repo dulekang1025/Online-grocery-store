@@ -21,11 +21,31 @@
 
     </resultMap>
 
+    <resultMap id="orderItemPairMap" type="OrderItemPair">
+        <id property="orderId" column="order_id"></id>
+        <id property="productId" column="product_id"></id>
+        <result property="quantity" column="quantity"></result>
+    </resultMap>
+
     <select id="findAll" resultMap="orderMap">
         select * from orderTable;
     </select>
 
-    <insert id="createOrder" parameterType="Order">
+    <select id="findItemsByOrderId" parameterType="java.lang.Long" resultType="orderItemPairMap">
+        select * from orderItems where order_id=#{orderId}
+    </select>
+
+    <insert id="addItemToOrder">
+        insert into orderItems(order_id,product_id,quantity) values(#{orderid},#{product_id},#{quantity});
+    </insert>
+
+    <update id="updateOrder" parameterType="Order">
+        update orderTable set customer_id=#{customer.id}, total_price=#{sumPrice}, creation_date=#{createTime},
+        receiver_name=#{name}, state=#{state}, city=#{city}, street=#{street}, postcode=#{zip},
+        credit_card_num=#{ccNumber}, expire_date=#{ccExpiration}, cvv_num=#{ccCVV} where order_id=#{orderId};
+    </update>
+
+    <insert id="saveOrder" parameterType="Order">
         <selectKey keyProperty="id" keyColumn="orderId" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
@@ -35,22 +55,24 @@
         #{zip}, #{ccNumber}, #{ccExpiration}, #{ccCVV});
     </insert>
 
-    <update id="updateOrder" parameterType="java.lang.Long">
-        update orderTable set customer_id=#{customer.id}, total_price=#{sumPrice}, creation_date=#{createTime},
-        receiver_name=#{name}, state=#{state}, city=#{city}, street=#{street}, postcode=#{zip},
-        credit_card_num=#{ccNumber}, expire_date=#{ccExpiration}, cvv_num=#{ccCVV} where order_id=#{orderId};
-    </update>
-
-    <delete id="deleteOrder" parameterType="java.lang.Long">
-        delete from orderTable where order_id=#{orderId};
-    </delete>
-
     <select id="findOrderById" parameterType="java.lang.Long" resultMap="orderMap">
         select * from orderTable where order_id=#{orderId};
     </select>
 
     <select id="findOrderByDate" parameterType="java.util.Date" resultMap="orderMap">
-        select * from orderTable where creation_date=#{createTime};
+        select * from orderTable where creation_date=#{date};
     </select>
+
+    <delete id="deleteOrderById" parameterType="java.lang.Long">
+        delete from orderTable where order_id=#{orderId};
+    </delete>
+
+    <delete id="deleteItemsByIds">
+        delete from orderItems where order_id=#{orderId};
+    </delete>
+
+    <delete id="deleteOrderByUserId" parameterType="java.lang.Long">
+        delete from orderTable where customer_name=#{uderName};
+    </delete>
 
 </mapper>
