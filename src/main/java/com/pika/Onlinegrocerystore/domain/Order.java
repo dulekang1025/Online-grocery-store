@@ -1,6 +1,6 @@
 package com.pika.Onlinegrocerystore.domain;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,25 +10,29 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 @Entity
 @Data
+//@Getter
+//@Setter
 //@Table(name="rrderTable") //todo: will be changed when finish service layer
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long orderId;
+    private Long id;
 
-    @ManyToOne
-    private Customer customer;
+    private Long userId;
 
     // consider to use NotNull
     @NotBlank(message="Name is required")
-    private String name;
+    private String userName;
 
     @NotBlank(message="State is required")
     private String state;
@@ -61,30 +65,32 @@ public class Order implements Serializable {
 
     private int earnPoints;
 
-    @ManyToMany(targetEntity = Product.class)
-    private Map<Product, Integer> orderDetails;
+    @ManyToMany(targetEntity = OrderItemPair.class)
+//    private Map<Product, Integer> orderDetails;
+    private List<OrderItemPair> orderDetails;//todo
 
-    public Order() {
-    }
 
-    public Order(Long orderId, Customer customer, @NotBlank(message = "Name is required") String name,
-                 @NotBlank(message = "State is required") String state,
-                 @NotBlank(message = "City is required") String city,
-                 @NotBlank(message = "Street is required") String street,
-                 @NotBlank(message = "Zip code is required") String zip,
-                 @CreditCardNumber(message = "Not a valid credit card number") String ccNumber,
-                 String ccExpiration, String ccCVV, Double sumPrice, Date createTime) {
-        this.orderId = orderId;
-        this.customer = customer;
-        this.name = name; // todo what does name refers to in Order class?
-        this.state = state;
-        this.city = city;
-        this.street = street;
-        this.zip = zip;
-        this.ccNumber = ccNumber;
-        this.ccExpiration = ccExpiration;
-        this.ccCVV = ccCVV;
-        this.sumPrice = sumPrice;
-        this.createTime = createTime;
-    }
+//    public Order() {
+//    }
+//
+//    public Order(Long orderId, Customer customer, @NotBlank(message = "Name is required") String name,
+//                 @NotBlank(message = "State is required") String state,
+//                 @NotBlank(message = "City is required") String city,
+//                 @NotBlank(message = "Street is required") String street,
+//                 @NotBlank(message = "Zip code is required") String zip,
+//                 @CreditCardNumber(message = "Not a valid credit card number") String ccNumber,
+//                 String ccExpiration, String ccCVV, Double sumPrice, Date createTime) {
+//        this.orderId = orderId;
+//        this.customer = customer;
+//        this.name = name; // todo what does name refers to in Order class?
+//        this.state = state;
+//        this.city = city;
+//        this.street = street;
+//        this.zip = zip;
+//        this.ccNumber = ccNumber;
+//        this.ccExpiration = ccExpiration;
+//        this.ccCVV = ccCVV;
+//        this.sumPrice = sumPrice;
+//        this.createTime = createTime;
+//    }
 }

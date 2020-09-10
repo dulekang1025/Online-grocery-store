@@ -2,7 +2,9 @@ package com.pika.Onlinegrocerystore.Services.ServiceImpl;
 
 import com.pika.Onlinegrocerystore.Services.OrderService;
 import com.pika.Onlinegrocerystore.dao.IOrderDao;
+import com.pika.Onlinegrocerystore.domain.ItemPair;
 import com.pika.Onlinegrocerystore.domain.Order;
+import com.pika.Onlinegrocerystore.domain.OrderItemPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,47 +23,77 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(Long id) {
-        Order order=orderDao.findOrderById(id);
+    public List<Order> findAll() {
+        List<Order> result=orderDao.findAll();
+        for(Order res:result){
+            res.setOrderDetails(orderDao.findItemsByOrderId(res.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+
+        orderDao.updateOrder(order);
+
+        for(OrderItemPair item:order.getOrderDetails()){
+            orderDao.addItemToOrder(order.getId(),item.getProductId(),item.getQuantity());
+        }
+
+    }
+
+    @Override
+    public void createOrder(Order order) {
+
+        orderDao.saveOrder(order);
+        for(OrderItemPair item:order.getOrderDetails()){
+            orderDao.addItemToOrder(order.getId(),item.getProductId(),item.getQuantity());
+        }
+    }
+
+    @Override
+    public Order findOrderById(Long orderId) {
+        Order order=orderDao.findOrderById(orderId);
+        List<OrderItemPair> items=orderDao.findItemsByOrderId(orderId);
+        order.setOrderDetails(items);
         return order;
     }
 
     @Override
-    public List<Order> findAll() {
-        List<Order> result=orderDao.findAll();
+    public List<Order> findOrdersByUserId(Long id) {
+        List<Order> result=orderDao.findOrderByUserId(id);
+        for(Order order:result){
+            order.setOrderDetails(orderDao.findItemsByOrderId(order.getId()));
+        }
         return result;
     }
 
     @Override
-    public void update(Order order) {
-        orderDao.updateOrder(order);
+    public List<Order> findOrdersByDate(Date date) {
+        List<Order> result=orderDao.findOrderByDate(date);
+        for(Order order:result){
+            order.setOrderDetails(orderDao.findItemsByOrderId(order.getId()));
+        }
+        return result;
     }
 
     @Override
-    public void create(Order order) {
-        orderDao.saveOrder(order);
-    }
-
-    @Override
-    public void deleteById(Long id) { //todo: impl by controller
-//        orderDao.deleteOrder(cartId);
+    public void deleteOrderById(Long orderId) {
+        orderDao.deleteOrderById(orderId);
+        orderDao.deleteItemsById(orderId);
     }
 
     @Override
     public void deleteByUserName(String userName) {
-        //todo: impl by controller
+        List<Order> orders=orderDao.findOrderByUserName(userName);
+
+        for(Order ord:orders){
+            orderDao.deleteItemsById(ord.getId());
+        }
+
+        orderDao.deleteOrderByUserName(userName);
 
     }
 
-    @Override
-    public List<Order> findByUserId(Long id) {
-        List<Order> result=orderDao.findOrderByUserId(id);
-        return result;
-    }
 
-    @Override
-    public List<Order> findByDate(Date date) {
-        List<Order> result=orderDao.findOrderByDate(date);
-        return result;
-    }
 }
