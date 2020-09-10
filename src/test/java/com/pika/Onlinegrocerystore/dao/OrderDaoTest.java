@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes={com.pika.Onlinegrocerystore.dao.IOrderDao.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class IOrderDaoTest {
+class OrderDaoTest {
     private InputStream in;
     private IOrderDao orderDao;
     private SqlSession sqlSession;
