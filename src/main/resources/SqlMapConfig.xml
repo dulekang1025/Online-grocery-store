@@ -36,6 +36,7 @@
         </environment>
     </environments>
 
+
     <mappers>
         <!-- 因为Java包内叫ICustomerDao, xml文件叫CustomerMapper.xml， 名字不同-->
         <mapper resource="com/pika/Onlinegrocerystore/dao/CustomerMapper.xml"></mapper>
