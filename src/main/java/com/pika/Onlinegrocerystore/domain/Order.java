@@ -1,8 +1,6 @@
 package com.pika.Onlinegrocerystore.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,23 +15,24 @@ import java.util.Map;
 
 @Entity
 @Data
+//@Getter
+//@Setter
 //@Table(name="rrderTable") //todo: will be changed when finish service layer
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long orderId;
+    private Long id;
 
-    @ManyToOne
-    private Customer customer;
+    private Long userId;
 
     // consider to use NotNull
     @NotBlank(message="Name is required")
-    private String name;
+    private String userName;
 
     @NotBlank(message="State is required")
     private String state;

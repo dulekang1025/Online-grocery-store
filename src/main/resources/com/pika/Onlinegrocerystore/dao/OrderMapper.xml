@@ -5,12 +5,12 @@
 <mapper namespace="com.pika.Onlinegrocerystore.dao.IOrderDao">
 
     <resultMap id="orderMap" type="Order">
-        <id property="orderId" column="order_id"></id>
+        <id property="id" column="order_id"></id>
         <!--  property is attributes in class， column is in database -->
-        <result property="customer.id" column="customer_id"></result>
+        <result property="userId" column="user_id"></result>
         <result property="sumPrice" column="total_price"></result>
         <result property="createTime" column="creation_date"></result>
-        <result property="name" column="receiver_name"></result>
+        <result property="userName" column="user_name"></result>
         <result property="state" column="address_state"></result>
         <result property="city" column="address_city"></result>
         <result property="street" column="address_street"></result>
@@ -31,48 +31,57 @@
         select * from orderTable;
     </select>
 
-    <select id="findItemsByOrderId" parameterType="java.lang.Long" resultType="orderItemPairMap">
+    <select id="findItemsByOrderId" parameterType="java.lang.Long" resultMap="orderItemPairMap">
         select * from orderItems where order_id=#{orderId}
     </select>
 
     <insert id="addItemToOrder">
-        insert into orderItems(order_id,product_id,quantity) values(#{orderid},#{product_id},#{quantity});
+        insert into orderItems(order_id,product_id,quantity) values(#{orderId},#{productId},#{quantity});
     </insert>
 
     <update id="updateOrder" parameterType="Order">
-        update orderTable set customer_id=#{customer.id}, total_price=#{sumPrice}, creation_date=#{createTime},
-        receiver_name=#{name}, state=#{state}, city=#{city}, street=#{street}, postcode=#{zip},
-        credit_card_num=#{ccNumber}, expire_date=#{ccExpiration}, cvv_num=#{ccCVV} where order_id=#{orderId};
+        update orderTable set user_id=#{userId}, total_price=#{sumPrice}, creation_date=#{createTime},
+        user_name=#{userName}, address_state=#{state}, address_city=#{city}, address_street=#{street}, postcode=#{zip},
+        credit_card_num=#{ccNumber}, expire_date=#{ccExpiration}, cvv_num=#{ccCVV} where order_id=#{id};
     </update>
 
     <insert id="saveOrder" parameterType="Order">
-        <selectKey keyProperty="id" keyColumn="orderId" resultType="java.lang.Long" order="AFTER">
+        <selectKey keyProperty="id" keyColumn="order_id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
-        insert into orderTable(customer_id, total_price, creation_date, receiver_name, state, city,
-        street, postcode, credit_card_num, expire_date, cvv_num)
-        values(#{customer.id}, #{sumPrice}, #{createTime}, #{name}, #{state}, #{city}, #{street},
+        insert into orderTable(user_id, total_price, creation_date, user_name, address_state, address_city,
+        address_street, postcode, credit_card_num, expire_date, cvv_num)
+        values(#{userId}, #{sumPrice}, #{createTime}, #{userName}, #{state}, #{city}, #{street},
         #{zip}, #{ccNumber}, #{ccExpiration}, #{ccCVV});
     </insert>
 
-    <select id="findOrderById" parameterType="java.lang.Long" resultMap="orderMap">
-        select * from orderTable where order_id=#{orderId};
+    <select id="findOrderByUserId" parameterType="java.lang.Long" resultMap="orderMap">
+        select * from orderTable where order_id=#{userId};
     </select>
+
+    <select id="findOrderByUserName" parameterType="java.lang.String" resultMap="orderMap">
+        select * from orderTable where user_name=#{userName};
+    </select>
+
 
     <select id="findOrderByDate" parameterType="java.util.Date" resultMap="orderMap">
         select * from orderTable where creation_date=#{date};
     </select>
 
+    <select id="findOrderById" parameterType="java.lang.Long" resultMap="orderMap">
+        select * from orderTable where order_id=#{id};
+    </select>
+
     <delete id="deleteOrderById" parameterType="java.lang.Long">
-        delete from orderTable where order_id=#{orderId};
+        delete from orderTable where order_id=#{id};
     </delete>
 
-    <delete id="deleteItemsByIds">
+    <delete id="deleteItemsById">
         delete from orderItems where order_id=#{orderId};
     </delete>
 
     <delete id="deleteOrderByUserId" parameterType="java.lang.Long">
-        delete from orderTable where customer_name=#{uderName};
+        delete from orderTable where user_name=#{userName};
     </delete>
 
 </mapper>

@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findAll() {
         List<Order> result=orderDao.findAll();
         for(Order res:result){
-            res.setOrderDetails(orderDao.findItemsByOrderId(res.getOrderId()));
+            res.setOrderDetails(orderDao.findItemsByOrderId(res.getId()));
         }
         return result;
     }
@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
         orderDao.updateOrder(order);
 
         for(OrderItemPair item:order.getOrderDetails()){
-            orderDao.addItemToOrder(order.getOrderId(),item.getProductId(),item.getQuantity());
+            orderDao.addItemToOrder(order.getId(),item.getProductId(),item.getQuantity());
         }
 
     }
@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
 
         orderDao.saveOrder(order);
         for(OrderItemPair item:order.getOrderDetails()){
-            orderDao.addItemToOrder(order.getOrderId(),item.getProductId(),item.getQuantity());
+            orderDao.addItemToOrder(order.getId(),item.getProductId(),item.getQuantity());
         }
     }
 
@@ -63,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrdersByUserId(Long id) {
         List<Order> result=orderDao.findOrderByUserId(id);
         for(Order order:result){
-            order.setOrderDetails(orderDao.findItemsByOrderId(order.getOrderId()));
+            order.setOrderDetails(orderDao.findItemsByOrderId(order.getId()));
         }
         return result;
     }
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrdersByDate(Date date) {
         List<Order> result=orderDao.findOrderByDate(date);
         for(Order order:result){
-            order.setOrderDetails(orderDao.findItemsByOrderId(order.getOrderId()));
+            order.setOrderDetails(orderDao.findItemsByOrderId(order.getId()));
         }
         return result;
     }
@@ -88,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
         List<Order> orders=orderDao.findOrderByUserName(userName);
 
         for(Order ord:orders){
-            orderDao.deleteItemsById(ord.getOrderId());
+            orderDao.deleteItemsById(ord.getId());
         }
 
         orderDao.deleteOrderByUserName(userName);
