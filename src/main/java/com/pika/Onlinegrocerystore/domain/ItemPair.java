@@ -2,6 +2,8 @@ package com.pika.Onlinegrocerystore.domain;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC,force = true)
 @AllArgsConstructor

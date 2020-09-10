@@ -1,5 +1,6 @@
 package com.pika.Onlinegrocerystore.Services;
 
+import com.pika.Onlinegrocerystore.domain.ItemPair;
 import com.pika.Onlinegrocerystore.domain.Order;
 
 import java.sql.Date;
@@ -7,17 +8,23 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order findById(Long id);
+    //for manager
     List<Order> findAll();
-    void update(Order order);
-    void create(Order order);
-    void deleteById(Long id);
 
+    //for manager
+    List<Order> findOrdersByDate(Date date);
+
+    void updateOrder(Order order);
+
+    void createOrder(Order order);
+
+    Order findOrderById(Long orderId);
+
+    List<Order> findOrdersByUserId(Long userId);
+
+    void deleteOrderById(Long orderId);
 
     // change the order status, but not delete from database
     void deleteByUserName(String userName);
 
-    List<Order> findByUserId(Long id);
-
-    List<Order> findByDate(Date date);
 }
