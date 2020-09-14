@@ -13,6 +13,8 @@ import java.sql.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.TestInstance;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.parameters.P;
 
 import static org.junit.Assert.*;
@@ -20,27 +22,12 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes={com.pika.Onlinegrocerystore.dao.IProductDao.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductDaoTests {
-    private InputStream in;
     private IProductDao productDao;
-    private SqlSession sqlSession;
 
     @BeforeAll
     public void init() throws Exception{
-        in = Resources.getResourceAsStream("SqlMapConfig.xml");
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-        sqlSession = factory.openSession(true);
-        productDao = sqlSession.getMapper(IProductDao.class);
-        System.out.println(in);
-    }
-
-    @AfterAll//用于在测试方法执行之后执行
-    public void destroy()throws Exception{
-        // 提交事务
-        sqlSession.commit();
-        // 释放资源
-        sqlSession.close();
-        // 关闭输入流
-        in.close();
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        this.productDao = ac.getBean(IProductDao.class);
     }
 
     @Test

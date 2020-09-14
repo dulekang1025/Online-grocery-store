@@ -11,6 +11,7 @@ import java.util.List;
 
 
 public interface IManagerDao {
+
     List<Manager> findAll();
 
     void saveManager(Manager manager);

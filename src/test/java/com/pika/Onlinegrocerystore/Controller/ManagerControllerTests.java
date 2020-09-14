@@ -1,7 +1,7 @@
 
 
 
-//It's not a good idea to use this file to test controller, use tomcat
+//It's not a good idea to use this file to test controller, use tomcat to test
 
 
 

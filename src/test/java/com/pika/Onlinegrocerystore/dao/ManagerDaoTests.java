@@ -22,30 +22,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @SpringBootTest(classes={com.pika.Onlinegrocerystore.dao.IManagerDao.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ManagerDaoTests {
-    private InputStream in;
     private IManagerDao managerDao;
-    private SqlSession sqlSession;
 
     @BeforeAll
     public void init() throws Exception{
-        in = Resources.getResourceAsStream("SqlMapConfig.xml");
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         this.managerDao = ac.getBean(IManagerDao.class);
-//        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-//        sqlSession = factory.openSession(true);
-//        managerDao = sqlSession.getMapper(IManagerDao.class);
-//        System.out.println(in);
     }
-
-//    @AfterAll//用于在测试方法执行之后执行
-//    public void destroy()throws Exception{
-//        // 提交事务
-//        sqlSession.commit();
-//        // 释放资源
-//        sqlSession.close();
-//        // 关闭输入流
-//        in.close();
-//    }
 
     public static void printALlInfo(Manager manager){
         System.out.print(manager.getId() + '\t');

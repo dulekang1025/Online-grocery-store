@@ -13,6 +13,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.InputStream;
 import java.sql.Date;
@@ -26,29 +28,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes={com.pika.Onlinegrocerystore.dao.IOrderDao.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class OrderDaoTest {
-    private InputStream in;
     private IOrderDao orderDao;
-    private SqlSession sqlSession;
 
     @BeforeAll
     public void init() throws Exception{
-        in = Resources.getResourceAsStream("SqlMapConfig.xml");
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-        sqlSession = factory.openSession(true);
-        orderDao = sqlSession.getMapper(IOrderDao.class);
-        System.out.println(in);
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        this.orderDao = ac.getBean(IOrderDao.class);
     }
-
-    @AfterAll//用于在测试方法执行之后执行
-    public void destroy()throws Exception{
-        // 提交事务
-        sqlSession.commit();
-        // 释放资源
-        sqlSession.close();
-        // 关闭输入流
-        in.close();
-    }
-
 
     @Test
     void findAll() {
@@ -97,10 +83,9 @@ class OrderDaoTest {
 
     @Test
     void findOrderById() {
-        Order findOrder = orderDao.findOrderById(1L);
-        assertEquals(1, (long)findOrder.getId());
-
-        assertEquals(2,orderDao.findItemsByOrderId(1L).size());
+        Order findOrder = orderDao.findOrderById(16L);
+        assertEquals(16, (long)findOrder.getId());
+        assertEquals(1,orderDao.findItemsByOrderId(16L).size());
     }
 
     @Test
