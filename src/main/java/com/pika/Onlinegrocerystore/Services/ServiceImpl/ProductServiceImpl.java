@@ -3,7 +3,6 @@ package com.pika.Onlinegrocerystore.Services.ServiceImpl;
 import com.pika.Onlinegrocerystore.Services.ProductService;
 import com.pika.Onlinegrocerystore.dao.ICartDao;
 import com.pika.Onlinegrocerystore.dao.IProductDao;
-import com.pika.Onlinegrocerystore.domain.Category;
 import com.pika.Onlinegrocerystore.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +11,11 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final IProductDao productDao;
-    private Double totalPrice;
 
     @Autowired
-    public ProductServiceImpl(ICartDao cartDao, IProductDao productDao, Double totalPrice) {
-        this.productDao = productDao;
-    }
+    private IProductDao productDao;
+    private Double totalPrice;
+
 
     @Override
     public Product findById(Long id) {

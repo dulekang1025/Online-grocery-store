@@ -3,20 +3,24 @@ package com.pika.Onlinegrocerystore.Services.ServiceImpl;
 import com.pika.Onlinegrocerystore.Services.ManagerService;
 import com.pika.Onlinegrocerystore.dao.IManagerDao;
 import com.pika.Onlinegrocerystore.domain.Manager;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@NoArgsConstructor
 public class ManagerServiceImpl implements ManagerService {
 
-    private final IManagerDao managerDao;
-
     @Autowired
-    public ManagerServiceImpl(IManagerDao managerDao){
-        this.managerDao=managerDao;
-    }
+    private IManagerDao managerDao;
+
+//    @Autowired
+//    public ManagerServiceImpl(IManagerDao managerDao){
+//        this.managerDao=managerDao;
+//    }
 
 
     @Override
