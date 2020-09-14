@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
-@Mapper
+
 public interface IManagerDao {
     List<Manager> findAll();
 

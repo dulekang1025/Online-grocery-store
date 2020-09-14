@@ -1,6 +1,7 @@
 package com.pika.Onlinegrocerystore.Services;
 
 import com.pika.Onlinegrocerystore.domain.Manager;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

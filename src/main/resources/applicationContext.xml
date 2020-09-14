@@ -1,81 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-<!--    <context:component-scan base-package="com.pika.Onlinegrocerystore">-->
-<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
-<!--    </context:component-scan>-->
-<!--    <bean cartId="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-
-<!--</beans>-->
-
-
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd
-	http://www.springframework.org/schema/aop
-	http://www.springframework.org/schema/aop/spring-aop.xsd
-	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx.xsd">
-
-    <context:component-scan base-package="com.pika.Onlinegrocerystore">
-        <!--  告知spring容器哪些注解不需要扫描      -->
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
-
-    <!-- spring整合mybatis   -->
-    <!-- for future use   -->
-
-    <context:property-placeholder location="classpath:application.properties"/>
+			    http://www.springframework.org/schema/beans/spring-beans.xsd
+			    http://www.springframework.org/schema/context
+			    http://www.springframework.org/schema/context/spring-context.xsd
+			    http://www.springframework.org/schema/aop
+			    http://www.springframework.org/schema/aop/spring-aop.xsd
+			    http://www.springframework.org/schema/tx
+			    http://www.springframework.org/schema/tx/spring-tx.xsd
+			    http://www.springframework.org/schema/mvc
+			    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--dao层配置文件开始-->
+    <!--配置连接池 alibaba-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${jdbc.driver}"/>
-        <property name="jdbcUrl" value="${jdbc.url}" />
-        <property name="user" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
+            <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+            <property name="jdbcUrl" value="jdbc:mysql://3.96.65.40:3306/grocery" />
+            <property name="user" value="root"/>
+            <property name="password" value="GODlike2325#"/>
     </bean>
 
-
-<!--    <bean cartId="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
-<!--        <property name="dataSource" ref="dataSource" />-->
-<!--    </bean>-->
-
-<!--    <bean cartId="articleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
-<!--        <property name="mapperInterface" value="com.baeldung.mybatis.ArticleMapper" />-->
-<!--        <property name="sqlSessionFactory" ref="sqlSessionFactory" />-->
-<!--    </bean>-->
-
-    <!--  配置sqlSessionFactory  -->
+    <!--配置生产SqlSession对象的工厂-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
-    </bean>
-    <!--  配置映射文件的位置  用于声明 生成哪些dao接口的代理对象-->
-    <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.pika.Onlinegrocerystore.dao"></property>
+        <property name="dataSource" ref="dataSource"/>
+        <!--扫描domain包，给包下所有pojo对象起别名-->
+        <property name="typeAliasesPackage" value="com.pika.Onlinegrocerystore.domain"/>
     </bean>
 
-    <!-- 配置spring的声明式事务管理   -->
-    <!--   配置事务管理器   -->
+    <!--扫描接口包路径，生成包下所有接口的代理对象，并且放入spring容器中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.pika.Onlinegrocerystore.dao"/>
+    </bean>
+    <!--dao层配置文件结束-->
+
+
+    <!--service层配置文件开始-->
+
+    <!--组件扫描配置-->
+    <context:component-scan base-package="com.pika.Onlinegrocerystore.Services.ServiceImpl"/>
+    <context:component-scan base-package="com.pika.Onlinegrocerystore.dao"/>
+    <context:component-scan base-package="com.pika.Onlinegrocerystore.Controller"/>
+
+    <!--aop面向切面编程，切面就是切入点和通知的组合-->
+    <!--配置事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
-
-    <!--  配置事务通知  -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <!--配置事务的通知-->
+    <tx:advice id="txAdvice">
         <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
             <tx:method name="find*" read-only="true"/>
-            <tx:method name="*" isolation="DEFAULT"/>
+            <tx:method name="*" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
 
-    <!--   配置aop增强 -->
+    <!--配置切面-->
     <aop:config>
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.pika.Onlinegrocerystore.Services.ServiceImpl.*.*(..))"/>
-
+        <aop:pointcut id="pointcut" expression="execution(* com.pika.Onlinegrocerystore.Services.ServiceImpl.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
     </aop:config>
 
+
+
+
+
 </beans>
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+
+<!--&lt;!&ndash;    <context:component-scan base-package="com.pika.Onlinegrocerystore">&ndash;&gt;-->
+<!--&lt;!&ndash;        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </context:component-scan>&ndash;&gt;-->
+<!--&lt;!&ndash;    <bean cartId="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">&ndash;&gt;-->
+
+<!--&lt;!&ndash;</beans>&ndash;&gt;-->
+
+
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--       xmlns:context="http://www.springframework.org/schema/context"-->
+<!--       xmlns:aop="http://www.springframework.org/schema/aop"-->
+<!--       xmlns:tx="http://www.springframework.org/schema/tx"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+<!--	http://www.springframework.org/schema/beans/spring-beans.xsd-->
+<!--	http://www.springframework.org/schema/context-->
+<!--	http://www.springframework.org/schema/context/spring-context.xsd-->
+<!--	http://www.springframework.org/schema/aop-->
+<!--	http://www.springframework.org/schema/aop/spring-aop.xsd-->
+<!--	http://www.springframework.org/schema/tx-->
+<!--	http://www.springframework.org/schema/tx/spring-tx.xsd">-->
+
+<!--    <context:component-scan base-package="com.pika.Onlinegrocerystore.Services">-->
+<!--        &lt;!&ndash;  告知spring容器哪些注解不需要扫描      &ndash;&gt;-->
+<!--&lt;!&ndash;        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>&ndash;&gt;-->
+<!--    </context:component-scan>-->
+
+<!--    &lt;!&ndash; spring整合mybatis   &ndash;&gt;-->
+<!--    &lt;!&ndash; for future use   &ndash;&gt;-->
+
+<!--    <context:property-placeholder location="classpath:application.properties"/>-->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://3.96.65.40:3306/grocery" />-->
+<!--        <property name="user" value="root"/>-->
+<!--        <property name="password" value="GODlike2325#"/>-->
+<!--&lt;!&ndash;        <property name="driverClass" value="${jdbc.driver}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="jdbcUrl" value="${jdbc.url}" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="user" value="${jdbc.username}"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="password" value="${jdbc.password}"/>&ndash;&gt;-->
+<!--    </bean>-->
+
+
+<!--&lt;!&ndash;    <bean cartId="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="dataSource" ref="dataSource" />&ndash;&gt;-->
+<!--&lt;!&ndash;    </bean>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <bean cartId="articleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="mapperInterface" value="com.baeldung.mybatis.ArticleMapper" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="sqlSessionFactory" ref="sqlSessionFactory" />&ndash;&gt;-->
+<!--&lt;!&ndash;    </bean>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;  配置sqlSessionFactory  &ndash;&gt;-->
+<!--    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSource"></property>-->
+<!--        <property name="typeAliasesPackage" value="com.pika.Onlinegrocerystore.domain"/>-->
+<!--    </bean>-->
+<!--    &lt;!&ndash;  配置映射文件的位置  用于声明 生成哪些dao接口的代理对象&ndash;&gt;-->
+<!--    <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="basePackage" value="com.pika.Onlinegrocerystore.dao"></property>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash; 配置spring的声明式事务管理   &ndash;&gt;-->
+<!--    &lt;!&ndash;   配置事务管理器   &ndash;&gt;-->
+<!--    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+<!--        <property name="dataSource" ref="dataSource"></property>-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;  配置事务通知  &ndash;&gt;-->
+<!--    <tx:advice id="txAdvice" transaction-manager="transactionManager">-->
+<!--        <tx:attributes>-->
+<!--            <tx:method name="find*" read-only="true"/>-->
+<!--            <tx:method name="*" isolation="DEFAULT"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
+
+<!--</beans>-->
+

@@ -16,6 +16,8 @@ import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @SpringBootTest(classes={com.pika.Onlinegrocerystore.dao.IManagerDao.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -27,21 +29,23 @@ public class ManagerDaoTests {
     @BeforeAll
     public void init() throws Exception{
         in = Resources.getResourceAsStream("SqlMapConfig.xml");
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-        sqlSession = factory.openSession(true);
-        managerDao = sqlSession.getMapper(IManagerDao.class);
-        System.out.println(in);
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        this.managerDao = ac.getBean(IManagerDao.class);
+//        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+//        sqlSession = factory.openSession(true);
+//        managerDao = sqlSession.getMapper(IManagerDao.class);
+//        System.out.println(in);
     }
 
-    @AfterAll//用于在测试方法执行之后执行
-    public void destroy()throws Exception{
-        // 提交事务
-        sqlSession.commit();
-        // 释放资源
-        sqlSession.close();
-        // 关闭输入流
-        in.close();
-    }
+//    @AfterAll//用于在测试方法执行之后执行
+//    public void destroy()throws Exception{
+//        // 提交事务
+//        sqlSession.commit();
+//        // 释放资源
+//        sqlSession.close();
+//        // 关闭输入流
+//        in.close();
+//    }
 
     public static void printALlInfo(Manager manager){
         System.out.print(manager.getId() + '\t');
