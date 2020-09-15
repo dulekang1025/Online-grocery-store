@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pika.Onlinegrocerystore.dao.IManagerDao">
 
-    <resultMap id="managerMap" type="Manager">
+    <resultMap id="managerMap" type="com.pika.Onlinegrocerystore.domain.Manager">
         <id property="id" column="id"></id>
         <!--  property is attributes in class， column is in database -->
         <result property="username" column="username"></result>
@@ -17,7 +17,7 @@
         select * from managerTable;
     </select>
 
-    <insert id="saveManager" parameterType="Manager" >
+    <insert id="saveManager" parameterType="com.pika.Onlinegrocerystore.domain.Manager" >
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
@@ -25,7 +25,7 @@
         values(#{username}, #{password}, #{email});
     </insert>
 
-    <update id="updateManager" parameterType="Manager">
+    <update id="updateManager" parameterType="com.pika.Onlinegrocerystore.domain.Manager">
         update managerTable set username=#{username}, password=#{password}, email=#{email} where id=#{id};
     </update>
 

@@ -5,7 +5,7 @@
 <mapper namespace="com.pika.Onlinegrocerystore.dao.ICustomerDao">
 
 
-    <resultMap id="customerMap" type="Customer">
+    <resultMap id="customerMap" type="com.pika.Onlinegrocerystore.domain.Customer">
         <id property="id" column="id"></id>
         <!--  property is attributes in class， column is in database -->
         <result property="username" column="username"></result>
@@ -18,14 +18,13 @@
         <!-- <result property="address" column="address"></result>-->
         <!-- <result property="postCode" column="postCode"></result>-->
         <!-- <result property="creditNum" column="creditNum"></result>-->
-
     </resultMap>
 
     <select id="findAll" resultMap="customerMap">
         select * from customerTable;
     </select>
 
-    <insert id="saveCustomer" parameterType="Customer" >
+    <insert id="saveCustomer" parameterType="com.pika.Onlinegrocerystore.domain.Customer" >
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
@@ -33,7 +32,7 @@
         values(#{username}, #{password}, #{email}, #{birthday}, #{phoneNum}, #{points});
     </insert>
 
-    <update id="updateCustomer" parameterType="Customer">
+    <update id="updateCustomer" parameterType="com.pika.Onlinegrocerystore.domain.Customer">
         update customerTable set username=#{username}, password=#{password}, email=#{email},
         birthday=#{birthday}, phone_num=#{phoneNum}, points=#{points} where id=#{id};
     </update>
@@ -55,7 +54,7 @@
     </delete>
 
 
-    <update id="addPointsToCustomerByID" parameterType="PurchasePoint">
+    <update id="addPointsToCustomerByID" parameterType="com.pika.Onlinegrocerystore.domain.PurchasePoint">
         update customerTable set points = points + #{points} where id=#{userId};
     </update>
 

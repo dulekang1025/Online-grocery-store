@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pika.Onlinegrocerystore.dao.IOrderDao">
 
-    <resultMap id="orderMap" type="Order">
+    <resultMap id="orderMap" type="com.pika.Onlinegrocerystore.domain.Order">
         <id property="id" column="order_id"></id>
         <!--  property is attributes in class， column is in database -->
         <result property="userId" column="user_id"></result>
@@ -21,7 +21,7 @@
 
     </resultMap>
 
-    <resultMap id="orderItemPairMap" type="OrderItemPair">
+    <resultMap id="orderItemPairMap" type="com.pika.Onlinegrocerystore.domain.OrderItemPair">
         <id property="orderId" column="order_id"></id>
         <id property="productId" column="product_id"></id>
         <result property="quantity" column="quantity"></result>
@@ -39,13 +39,13 @@
         insert into orderItems(order_id,product_id,quantity) values(#{orderId},#{productId},#{quantity});
     </insert>
 
-    <update id="updateOrder" parameterType="Order">
+    <update id="updateOrder" parameterType="com.pika.Onlinegrocerystore.domain.Order">
         update orderTable set user_id=#{userId}, total_price=#{sumPrice}, creation_date=#{createTime},
         user_name=#{userName}, address_state=#{state}, address_city=#{city}, address_street=#{street}, postcode=#{zip},
         credit_card_num=#{ccNumber}, expire_date=#{ccExpiration}, cvv_num=#{ccCVV} where order_id=#{id};
     </update>
 
-    <insert id="saveOrder" parameterType="Order">
+    <insert id="saveOrder" parameterType="com.pika.Onlinegrocerystore.domain.Order">
         <selectKey keyProperty="id" keyColumn="order_id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>

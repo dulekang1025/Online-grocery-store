@@ -5,7 +5,7 @@
 <mapper namespace="com.pika.Onlinegrocerystore.dao.ICartDao">
 
 
-    <resultMap id="cartMap" type="Cart">
+    <resultMap id="cartMap" type="com.pika.Onlinegrocerystore.domain.Cart">
         <id property="cartId" column="cart_id"></id>
         <!--  property is attributes in class， column is in database -->
         <result property="userId" column="user_id"></result>
@@ -15,7 +15,7 @@
 <!--        <result property="productMap" column="product_map"></result>-->
     </resultMap>
 
-    <resultMap id="cartItemMap" type="ItemPair">
+    <resultMap id="cartItemMap" type="com.pika.Onlinegrocerystore.domain.ItemPair">
         <id property="cartId" column="cart_id"></id>
         <result property="quantity" column="quantity"></result>
         <result property="productId" column="product_id"></result>
@@ -38,7 +38,7 @@
         select * from cartItems where cart_id=#{cartId} and product_id=#{itemId}
     </select>
 
-    <insert id="saveCart"  parameterType="Cart">
+    <insert id="saveCart"  parameterType="com.pika.Onlinegrocerystore.domain.Cart">
         <selectKey keyProperty="cartId" keyColumn="cart_id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
@@ -47,7 +47,7 @@
 
     </insert>
 
-    <insert id="addItemPair"  parameterType="ItemPair">
+    <insert id="addItemPair"  parameterType="com.pika.Onlinegrocerystore.domain.ItemPair">
         insert into cartItems(cart_id,product_id, quantity)
         values (#{cartId},#{productId}, #{quantity});
     </insert>

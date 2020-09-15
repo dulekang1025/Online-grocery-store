@@ -5,7 +5,7 @@
 <mapper namespace="com.pika.Onlinegrocerystore.dao.IProductDao">
 
 
-    <resultMap id="productMap" type="Product">
+    <resultMap id="productMap" type="com.pika.Onlinegrocerystore.domain.Product">
         <id property="id" column="id"></id>
         <!--  property is attributes in class， column is filed in database -->
         <result property="inStock" column="stock"></result>
@@ -22,7 +22,7 @@
         select * from productTable;
     </select>
 
-    <insert id="saveProduct" parameterType="Product">
+    <insert id="saveProduct" parameterType="com.pika.Onlinegrocerystore.domain.Product">
         <selectKey keyProperty="id" keyColumn="id" resultType="java.lang.Long" order="AFTER">
             select last_insert_id();
         </selectKey>
@@ -30,7 +30,7 @@
         values(#{inStock}, #{productName}, #{categoryId}, #{price}, #{productDescription}, #{points}, #{bestBefore});
     </insert>
 
-    <update id="updateProduct" parameterType="Product">
+    <update id="updateProduct" parameterType="com.pika.Onlinegrocerystore.domain.Product">
         update productTable set stock=#{inStock}, product_name=#{productName}, category_id=#{categoryId}, price=#{price},
         description=#{productDescription}, points=#{points}, best_before=#{bestBefore} where id=#{id};
     </update>

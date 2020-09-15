@@ -17,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.List;
 
-//@RestController
-@Controller
+@RestController
+//@Controller
 @RequestMapping("/manager")
 public class ManagerController {
 
@@ -41,12 +41,12 @@ public class ManagerController {
 //    }
 
     @RequestMapping("/findById")
-    public String findManager1(Model model) {
+    public void findManager1(Model model) {
 
         Manager manager = managerService.findById(1L);
         model.addAttribute("manager", manager);
+        System.out.println("aaaaa");
 
-        return "managers";
     }
 
 }

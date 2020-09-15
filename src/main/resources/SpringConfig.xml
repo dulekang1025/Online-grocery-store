@@ -16,6 +16,7 @@ http://www.springframework.org/schema/tx ">
 
     <context:component-scan base-package="com.pika.Onlinegrocerystore.Services.ServiceImpl"/>
     <context:component-scan base-package="com.pika.Onlinegrocerystore.dao"/>
+    <context:component-scan base-package="com.pika.Onlinegrocerystore.domain"/>
     <context:component-scan base-package="com.pika.Onlinegrocerystore.Controller"/>
 
     <mvc:annotation-driven/>
