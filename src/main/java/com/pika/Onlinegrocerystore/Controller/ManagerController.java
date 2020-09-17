@@ -24,29 +24,16 @@ public class ManagerController {
 
     @Autowired
     private ManagerService managerService;
-//    private ProductService productService;
-//
-//    @Autowired
-//    public ManagerController(ManagerService managerService) {
-//        this.managerService = managerService;
-//    }
-
-//    @RequestMapping("/findAll")
-////    @ResponseBody
-//    public String findById(Model model){
-//        System.out.println("Here.");
-//        model.addAttribute("manager", managerService.findById(1L));
-////        return managerService.findAll();
-//        return "managers";
-//    }
+    
+    @RequestMapping("/findAll")
+    public List<Manager> findById(Model model){
+        return managerService.findAll();
+    }
 
     @RequestMapping("/findById")
-    public void findManager1(Model model) {
-
+    public Manager findManager1() {
         Manager manager = managerService.findById(1L);
-        model.addAttribute("manager", manager);
-        System.out.println("aaaaa");
-
+        return manager;
     }
 
 }
